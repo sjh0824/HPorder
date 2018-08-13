@@ -9,10 +9,10 @@
       </div>
     <div class="containers">
         <div class="leftNav">
-            <div v-for="(item,index) in dtasets" class="modeles" :data-set="index" :class="{ hotModel: currentNum==index}" @click="changeNav(index)">
+            <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-set="index" :class="{ hotModel: currentNum==index}" @click="changeNav(index)">
                 {{item.name}}
 
-              <div class="childModel" v-if="item.child.length>0" v-for="(items,ind) in item.child" :dataSet="ind"  :class="{ childHotModel: childCurNum==ind,childDis: currentNum==index}" @click="changeChildNav(ind)"  @touchstart.stop='changeChildNav(ind)'>
+              <div class="childModel" v-if="item.child.length>0" v-for="(items,ind) in item.child" :key="ind" :dataSet="ind"  :class="{ childHotModel: childCurNum==ind,childDis: currentNum==index}" @click="changeChildNav(ind)"  @touchstart.stop='changeChildNav(ind)'>
                 <p>
                   {{items.name}}{{items.lines}}
                 </p>

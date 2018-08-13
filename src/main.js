@@ -32,7 +32,7 @@ export default {
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#000",
-      navigationBarTitleText: "",
+      navigationBarTitleText: "惠普",
       navigationBarTextStyle: "white"
     }
   }

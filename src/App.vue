@@ -7,6 +7,28 @@
     onShow(option) {
       console.log(option)
       this.$store.state.board.actId= '6';
+      var QQMapWX = require('../static/qqmap-wx-jssdk.min.js');
+      var qqmapsdk;
+      qqmapsdk = new QQMapWX({
+        key: 'OISBZ-SUKW6-LJ7SS-MXQHI-GC5FF-CQBGM'
+      });
+      wx.getLocation({
+        type: 'gcj02',
+        altitude: true,
+        success: (res) => {
+          qqmapsdk.reverseGeocoder({
+            location: {
+              latitude: res.latitude,
+              longitude: res.longitude
+            },
+            success: (addressRes) => {
+              console.log(addressRes)
+              this.$store.state.board.address = addressRes.result.address_component.province + '' + addressRes.result.address_component.district;
+              this.$store.state.board.location = addressRes.result.address_component.province;
+            }
+          })
+        }
+      })
       if(option.path&&option.path == 'pages/showPages/main'){
         var otherHelpId = this.$store.state.board.otherHelpId
         var actId = this.$store.state.board.actId

@@ -17,8 +17,8 @@ const state = {
   // exchangeProcess:false,
   existDoHelp: '',
   myExistDoHelp:'',
-  appid:'wxe579ca2db6c13ef6',
-  secret:'54cc07746b347458ab8b448029d66762',
+  appid:'wx7ce4b9ce272d1817',
+  secret:'d946a8de0df55661af48b97fa6de4d9b',
   headPic:[],
   // urlHttp:'http://192.168.1.101'
   // urlHttp:'https://cs.hejinkai.com'

@@ -74,6 +74,9 @@
         </div>
       </scroll-view>
     </div>
+    <div class="customized" @click="startCustom('0')">
+        开始定制
+    </div>
   </div>
 </template>
 
@@ -117,7 +120,11 @@
     methods: {
       detailContent(index){
         this.currentNum = index;
-
+      },
+      startCustom(index){
+        wx.navigateTo({
+          url: '../productConfig/main?id='+index
+        })
       }
     },
     async onPullDownRefresh() {
@@ -143,6 +150,7 @@
     width: 100%;
     height: 100%;
     background-color: #fff;
+    font-family: Arial!important;
     /*background-color: red;*/
     .imgShow{
       width: 100%;
@@ -167,7 +175,7 @@
       margin-left: 20px;
     }
     .productDetail{
-      height: calc(100% - 275px);
+      height: calc(100% - 305px);
       margin-top: 13px;
       .productTopNav{
         width: 100%;
@@ -200,6 +208,15 @@
 
         }
       }
+    }
+    .customized{
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      color: #fff;
+      font-size: 18px;
+      text-align: center;
+      background-color: #0096D6;
     }
 
   }

@@ -9,10 +9,9 @@
       </div>
     <div class="containers">
         <div class="leftNav">
-            <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-set="index" :class="{ hotModel: currentNum==index}" @click="changeNav(index)">
+            <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-parentid="index" :class="{ hotModel: currentNum==index}" @click="changeNav">
                 {{item.name}}
-
-              <div class="childModel" v-if="item.child.length>0" v-for="(items,ind) in item.child" :key="ind" :dataSet="ind"  :class="{ childHotModel: childCurNum==ind,childDis: currentNum==index}" @click="changeChildNav(ind)"  @touchstart.stop='changeChildNav(ind)'>
+              <div class="childModel" v-if="item.child.length>0" v-for="(items,ind) in item.child" :key="ind" :data-childid="ind"  :class="{ childHotModel: childCurNum==ind,childDis: currentNum==index}" @click="changeChildNav"  @touchstart.stop='changeChildNav'>
                 <p>
                   {{items.name}}{{items.lines}}
                 </p>
@@ -21,7 +20,7 @@
         </div>
       <div class="rightCon">
         <scroll-view scroll-y>
-          <div class="rightModel" @click="detailsPage('0')">
+          <div class="rightModel" :data-modelid="0" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
             <p>惠普战 99 G1移动工作站</p>
           </div>
@@ -137,16 +136,18 @@
         this.checked = false;
         wx.hideLoading()
       },
-      changeNav(index){
+      changeNav(e){
+        console.log(e)
         this.childCurNum = 0;
-        this.currentNum = index
+        this.currentNum = e.currentTarget.dataset.parentid
       },
-      changeChildNav(ind){
-        this.childCurNum = ind
+      changeChildNav(e){
+        console.log(e)
+        this.childCurNum = e.currentTarget.dataset.childid
       },
-      detailsPage(index){
+      detailsPage(e){
         wx.navigateTo({
-          url: '../detailPage/main?id='+index
+          url: '../detailPage/main?modelId='+ e.currentTarget.dataset.modelid
         })
       },
       cancle(){

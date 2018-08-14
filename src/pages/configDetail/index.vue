@@ -34,7 +34,8 @@
     },
 
     onLoad() {
-
+      console.log(4444444)
+      this.cpuNum = 0;
     },
     onShareAppMessage(res) {
       var that = this;
@@ -124,7 +125,7 @@
         div{
           width: 100%;
           height: 50px;
-          line-height: 48px;
+          line-height: 50px;
           text-align: center;
           border: 1px solid #ccc;
           border-radius: 3px;
@@ -140,14 +141,16 @@
           }
         }
         .cpuBorder{
-          line-height: 46px;
-          border: 2px solid #0096D9;
+          border: 1px solid #0096D9;
         }
       }
     }
     .priceCommit{
       width: 100%;
       height: 50px;
+      position: fixed;
+      left: 0px;
+      bottom: -2px;
       box-sizing: border-box;
       div{
         float: left;

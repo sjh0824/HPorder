@@ -42,7 +42,8 @@
     },
 
     onLoad() {
-
+      this.currentNum = 0;
+      console.log(333333)
     },
     onShareAppMessage(res) {
       var that = this;

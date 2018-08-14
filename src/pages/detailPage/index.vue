@@ -90,7 +90,9 @@
     },
 
     onLoad(option) {
+      this.currentNum = 0;
       console.log(option)
+      console.log(22222222)
     },
     onShareAppMessage(res) {
       var that = this;
@@ -213,6 +215,9 @@
       width: 100%;
       height: 50px;
       line-height: 50px;
+      position: fixed;
+      left: 0px;
+      bottom: 0px;
       color: #fff;
       font-size: 18px;
       text-align: center;

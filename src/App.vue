@@ -29,13 +29,6 @@
           })
         }
       })
-      if(option.path&&option.path == 'pages/showPages/main'){
-        var otherHelpId = this.$store.state.board.otherHelpId
-        var actId = this.$store.state.board.actId
-        wx.redirectTo({
-          url: '/pages/activePower/main?actId=' + actId + "&helpId=" + otherHelpId
-        })
-      }
     },
     created() {
 

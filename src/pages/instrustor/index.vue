@@ -73,7 +73,7 @@
     },
 
     onLoad() {
-
+      console.log(111111111)
     },
     onShareAppMessage(res) {
       var that = this;

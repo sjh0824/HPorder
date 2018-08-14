@@ -74,9 +74,6 @@
     },
     methods: {
       goHomePage(){
-        // wx.redirectTo({
-        //   url: '../instrustor/main'
-        // })
         wx.navigateBack({
           delta: 4
         })

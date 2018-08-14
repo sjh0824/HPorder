@@ -4,7 +4,7 @@
     <div :style="{'width':(getWindowWidth-40)+'px'}" class="container">
       <div class="logo" style="margin-top: 30px;">
         <img src="/static/images/logo.jpg" alt="">
-        <p style="color: #000;font-size: 18px;">智慧营销</p>
+        <p style="color: #000;font-size: 18px;">惠普</p>
         <p>分享足迹-更多人了解景点信息</p>
       </div>
       <p style="border-top:1px solid #ccc;width: 100%;margin: 60px 0 10px 0;"></p>

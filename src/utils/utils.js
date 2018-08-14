@@ -31,27 +31,12 @@ function login(that, flag, func) {
             header: {'content-type': 'application/x-www-form-urlencoded'},
             success: function (res) {
               if (res.data.success) {
+
                 console.log(new Date().getTime())
                 that.$store.state.board.sessionID = res.data.sessionID
-                // var currentPages = wx.getStorageSync('currentPages')
-                // that.$store.state.board.headPic=[]
-                var otherHelpId = that.$store.state.board.otherHelpId;
-                var actId = that.$store.state.board.actId;
-                var sessionID = that.$store.state.board.sessionID;
-                if (otherHelpId) {
-                  if (flag) {
-                    func(sessionID, otherHelpId)
-                  } else {
-                    func(sessionID, actId, otherHelpId)
-                  }
-                } else {
-                  var actId = that.$store.state.board.actId;
-                  var sessionID = that.$store.state.board.sessionID;
-                  if (!flag) {
-                    func(sessionID, actId);
-                  }
-
-                }
+                wx.redirectTo({
+                  url: '/pages/homePage/main'
+                })
 
               }
             }
@@ -101,7 +86,6 @@ function login(that, flag, func) {
     }
   })
 }
-
 module.exports = {
   login: login
 }

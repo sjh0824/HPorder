@@ -1,34 +1,24 @@
 <script>
   import utils from "./utils/utils.js";
-
   export default {
     onLaunch(option) {
     },
     onShow(option) {
+      var that = this;
       console.log(option)
       this.$store.state.board.actId= '6';
-      var QQMapWX = require('../static/qqmap-wx-jssdk.min.js');
-      var qqmapsdk;
-      qqmapsdk = new QQMapWX({
-        key: 'OISBZ-SUKW6-LJ7SS-MXQHI-GC5FF-CQBGM'
-      });
-      wx.getLocation({
-        type: 'gcj02',
-        altitude: true,
-        success: (res) => {
-          qqmapsdk.reverseGeocoder({
-            location: {
-              latitude: res.latitude,
-              longitude: res.longitude
-            },
-            success: (addressRes) => {
-              console.log(addressRes)
-              this.$store.state.board.address = addressRes.result.address_component.province + '' + addressRes.result.address_component.district;
-              this.$store.state.board.location = addressRes.result.address_component.province;
-            }
-          })
-        }
-      })
+      // wx.getSetting({
+      //   success: (res) => {
+      //     if (!res.authSetting['scope.userInfo']) {
+      //       wx.redirectTo({
+      //         url: '/pages/authorize/main'
+      //       })
+      //     } else {
+      //
+      //     }
+      //   }
+      // })
+
     },
     created() {
 

@@ -160,16 +160,16 @@
       }
       .configPrice{
         width: 100%;
-        text-align: center;
         p{
           height: 23px;
           line-height: 20px;
           color: rgba(16, 16, 16, 1);
           font-size: 14px;
           font-family: Arial;
+          margin-left: 80px;
           span{
             display: inline-block;
-            margin-left: 20px;
+            margin-left: 5px;
             color: rgba(0, 150, 214, 1);
           }
 

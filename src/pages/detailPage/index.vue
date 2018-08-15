@@ -1,7 +1,7 @@
 <template>
   <div class="vist-userInfo">
     <div class="imgShow">
-      <img class="productImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+      <img class="productImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
     </div>
     <div class="productPrice">
       ¥ 1,233

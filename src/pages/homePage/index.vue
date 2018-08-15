@@ -25,23 +25,23 @@
         <div class="rightCon">
         <scroll-view scroll-y  :scroll-top=scrollTop>
           <div class="rightModel" :data-modelid="0" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
             <p>惠普战 99 G1移动工作站</p>
           </div>
           <div class="rightModel" :data-modelid="1" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
             <p>惠普战 99 G1移动工作站</p>
           </div>
           <div class="rightModel" :data-modelid="2" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
             <p>惠普战 99 G1移动工作站</p>
           </div>
           <div class="rightModel" :data-modelid="3" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
             <p>惠普战 99 G1移动工作站</p>
           </div>
           <div class="rightModel"  :data-modelid="4" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
             <p>惠普战 99 G1移动工作站</p>
           </div>
         </scroll-view>

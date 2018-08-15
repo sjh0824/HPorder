@@ -12,8 +12,8 @@
             <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-parentid="index" :class="{ hotModel: currentNum==index}" @click="changeNav">
 
               <i class="icon iconfont icon-remen1" v-if="index==0"></i>
-              <i class="icon iconfont icon-PCtaishiji" v-if="index==1"></i>
-              <i class="icon iconfont icon-bijibendiannao3" v-if="index==2"></i>
+              <i class="icon iconfont icon-diannao" v-if="index==1"></i>
+              <i class="icon iconfont icon-bijibendiannao" v-if="index==2"></i>
               {{item.name}}
               <div class="childModel" v-if="item.child.length>0" v-for="(items,ind) in item.child" :key="ind" :data-childid="ind"  :class="{ childHotModel: childCurNum==ind,childDis: currentNum==index}" @click="changeChildNav"  @touchstart.stop='changeChildNav'>
                 <p>
@@ -53,7 +53,7 @@
         我的收藏
       </div>
       <div class="contactCus">
-        <i class="icon iconfont icon-iconfonta"></i>
+        <i class="icon iconfont icon-dianhua11"></i>
         联系客服
       </div>
     </div>
@@ -250,7 +250,7 @@
             position: relative;
             top:2px;
           }
-          .icon-bijibendiannao3{
+          .icon-bijibendiannao{
             width: 17px;
             font-size: 19px;
           }

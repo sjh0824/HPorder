@@ -18,49 +18,49 @@
       </div>
       <div>
         <p class="singleName">DDR Memory</p>
-        <div :class="{ cpuBorder: cpuNum==1}" @click="cpuChange('1')">
+        <div :class="{ cpuBorder: ddrNum==1}" @click="ddrChange('1')">
           <span>8G (4G*2) DDR4 2133</span><span class="priceDiff">- RMB 320</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==0}"  @click="cpuChange('0')">
+        <div :class="{ cpuBorder: ddrNum==0}"  @click="ddrChange('0')">
           <span>8G (8G*1) DDR4 2133</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
+        <div :class="{ cpuBorder: ddrNum==2}"  @click="ddrChange('2')">
           <span>16G (16G*1)DDR4 2133</span><span class="priceDiff">+ RMB 970</span>
         </div>
       </div>
       <div>
         <p class="singleName">HDD</p>
-        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
+        <div :class="{ cpuBorder: hddNum==0}" @click="hddChange('0')">
           <span>1T 7200(3.5")</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
+        <div :class="{ cpuBorder: hddNum==1}"  @click="hddChange('1')">
           <span>SSD 256G M.2 PCIe NVMe</span><span class="priceDiff">+ RMB 450</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
+        <div :class="{ cpuBorder: hddNum==2}"  @click="hddChange('2')">
           <span>SSD 512G PCIe NVMe</span><span class="priceDiff">+ RMB 780</span>
         </div>
       </div>
       <div>
         <p class="singleName">电源</p>
-        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
+        <div :class="{ cpuBorder: powerNum==0}" @click="powerChange('0')">
           <span>Stander Power</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
+        <div :class="{ cpuBorder: powerNum==1}"  @click="powerChange('1')">
           <span>High Efficient Power</span><span class="priceDiff">+ RMB 100</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
+        <div :class="{ cpuBorder: powerNum==2}"  @click="powerChange('2')">
           <span>250W 珀金电源</span><span class="priceDiff">+ RMB 160</span>
         </div>
       </div>
       <div>
         <p class="singleName">OS</p>
-        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
+        <div :class="{ cpuBorder: osNum==0}" @click="osChange('0')">
           <span>Windows 10 64位</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
+        <div :class="{ cpuBorder: osNum==1}"  @click="osChange('1')">
           <span>Windows 7 Pro 32位(中文版)</span><span class="priceDiff">+ RMB 900</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
+        <div :class="{ cpuBorder: osNum==2}"  @click="osChange('2')">
           <span>Windows 10 Pro 64位(中文版)</span><span class="priceDiff">+ RMB 900</span>
         </div>
       </div>
@@ -79,7 +79,11 @@
   export default {
     data() {
       return {
-        cpuNum:0
+        cpuNum:0,
+        ddrNum:0,
+        hddNum:0,
+        powerNum:0,
+        osNum:0
       }
     },
 
@@ -115,6 +119,18 @@
     methods: {
       cpuChange(index){
         this.cpuNum = index
+      },
+      ddrChange(index){
+        this.ddrNum = index
+      },
+      hddChange(index){
+        this.hddNum = index
+      },
+      powerChange(index){
+        this.powerNum = index
+      },
+      osChange(index){
+        this.osNum = index
       },
       infoCommit(){
         wx.navigateTo({
@@ -159,8 +175,9 @@
     }
     scroll-view{
       width: calc(100% - 40px);
-      height: calc(100% - 105px);
+      height: calc(100% - 95px);
       padding: 10px 20px;
+      padding-bottom: 0px;
       div{
         font-weight: normal;
         .singleName{
@@ -194,7 +211,10 @@
           }
         }
         .cpuBorder{
-          border: 1px solid #0096D9;
+          border: 2px solid #0096D9;
+          span{
+            line-height: 48px;
+          }
         }
       }
     }

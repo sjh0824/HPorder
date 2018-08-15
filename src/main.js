@@ -31,9 +31,9 @@ export default {
     pages: ["pages/logs/main",  "pages/authorize/main",  "^pages/homePage/main", "pages/detailPage/main","pages/productConfig/main","pages/configDetail/main","pages/infoCommit/main"],
     window: {
       backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#000",
+      navigationBarBackgroundColor: "white",
       navigationBarTitleText: "惠普",
-      navigationBarTextStyle: "white"
+      navigationBarTextStyle: "black"
     }
   }
 };

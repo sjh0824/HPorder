@@ -128,7 +128,7 @@
         float: left;
       }
       .productImg {
-        width: 160px;
+        width: 140px;
         height: 160px;
         img {
           width: 100%;
@@ -136,8 +136,8 @@
         }
       }
       .productInfo {
-        width: calc(100% - 165px);
-        padding-left: 5px;
+        width: calc(100% - 160px);
+        padding-left: 20px;
         span {
           display: block;
           font-size: 16px;
@@ -189,7 +189,8 @@
           border: 1px solid rgba(204, 204, 204, 1);
           color: rgba(16, 16, 16, 1);
           font-size: 14px;
-          text-align: center;
+          text-align: left;
+          padding-left: 15px;
           font-family: Arial;
           background-color: #fff;
           margin-bottom: 10px;

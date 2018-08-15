@@ -18,7 +18,7 @@
               </div>
             </div>
         </div>
-      <div class="rightCon">
+        <div class="rightCon">
         <scroll-view scroll-y>
           <div class="rightModel" :data-modelid="0" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
@@ -41,6 +41,14 @@
             <p>惠普战 99 G1移动工作站</p>
           </div>
         </scroll-view>
+      </div>
+    </div>
+    <div class="cliBtn">
+      <div>
+        我的收藏
+      </div>
+      <div class="contactCus">
+        联系客服
       </div>
     </div>
     <div class="maskModel" :class="{maskBlock: authorLoc== true}">
@@ -214,7 +222,7 @@
     }
     .containers{
       width: 100%;
-      height: calc(100% - 98px);
+      height: calc(100% - 145px);
       .leftNav{
         width: 100px;
         height: 100%;
@@ -289,6 +297,28 @@
 
       }
     }
+    .cliBtn{
+      width: 100%;
+      height: 47px;
+      position: fixed;
+      left: 0px;
+      bottom:0px;
+      div{
+        width: 50%;
+        float: left;
+        box-sizing: border-box;
+        height: 47px;
+        line-height: 47px;
+        background-color: rgba(0, 150, 217, 1);
+        color: rgba(255, 255, 255, 1);
+        font-size: 14px;
+        text-align: center;
+        font-family: Arial;
+      }
+      .contactCus{
+        border-left: 1px solid #fff;
+      }
+    }
     .maskModel{
       width: 100%;
       height: 100%;
@@ -297,6 +327,7 @@
       position: fixed;
       left: 0px;
       top:0px;
+      z-index: 1000;
       .maskContainer{
         width: 80%;
         height: 110px;

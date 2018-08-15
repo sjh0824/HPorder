@@ -1,7 +1,7 @@
 <template>
   <div class="vist-userInfo">
       <div class="commitSuc">
-        <p>提交成功！</p>
+        <p> <i class="icon iconfont icon-chenggong"></i>提交成功！</p>
       </div>
     <div class="commitInfo">
       <div class="commitTitle">
@@ -110,6 +110,13 @@
         font-size: 20px;
         text-align: center;
         font-family: Arial;
+        i{
+          display: inline-block;
+          font-size: 24px;
+          /*position: relative;*/
+          /*top: 2px;*/
+          margin-right: 10px;
+        }
       }
     }
     .commitInfo{

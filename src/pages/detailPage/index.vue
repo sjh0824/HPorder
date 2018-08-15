@@ -75,6 +75,7 @@
       </scroll-view>
     </div>
     <div class="customized" @click="startCustom('0')">
+      <i class="icon iconfont icon-shangwutubiao-"></i>
         开始定制
     </div>
   </div>
@@ -222,6 +223,12 @@
       font-size: 18px;
       text-align: center;
       background-color: #0096D6;
+      i{
+        display: inline-block;
+        font-size: 22px;
+        position: relative;
+        top: 2px;
+      }
     }
 
   }

@@ -10,7 +10,11 @@
     <div class="containers">
         <div class="leftNav">
             <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-parentid="index" :class="{ hotModel: currentNum==index}" @click="changeNav">
-                {{item.name}}
+
+              <i class="icon iconfont icon-remen1" v-if="index==0"></i>
+              <i class="icon iconfont icon-PCtaishiji" v-if="index==1"></i>
+              <i class="icon iconfont icon-bijibendiannao3" v-if="index==2"></i>
+              {{item.name}}
               <div class="childModel" v-if="item.child.length>0" v-for="(items,ind) in item.child" :key="ind" :data-childid="ind"  :class="{ childHotModel: childCurNum==ind,childDis: currentNum==index}" @click="changeChildNav"  @touchstart.stop='changeChildNav'>
                 <p>
                   {{items.name}}{{items.lines}}
@@ -45,9 +49,11 @@
     </div>
     <div class="cliBtn">
       <div>
+        <i class="icon iconfont icon-shoucang2"></i>
         我的收藏
       </div>
       <div class="contactCus">
+        <i class="icon iconfont icon-iconfonta"></i>
         联系客服
       </div>
     </div>
@@ -235,7 +241,21 @@
           font-size: 14px;
           color: #0096D6;
           border-bottom: 1px solid #fff;
-          text-align: center;
+          text-align: left;
+          /*box-sizing: border-box;*/
+          i{
+            margin-left: 10px;
+            display: inline-block;
+            margin-right: 2px;
+            height: 30px;
+            position: relative;
+            top:2px;
+          }
+          .icon-bijibendiannao3{
+            width: 17px;
+            margin-left: 9px;
+            font-size: 20px;
+          }
           .childModel{
             width: 100%;
             /*height: 50px;*/
@@ -314,6 +334,12 @@
         font-size: 14px;
         text-align: center;
         font-family: Arial;
+        i{
+          display: inline-block;
+          font-size: 20px;
+          position: relative;
+          top: 3px;
+        }
       }
       .contactCus{
         border-left: 1px solid #fff;

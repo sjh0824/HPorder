@@ -27,6 +27,7 @@
 </script>
 
 <style>
+  @import "./iconfont/iconfont.css";
   page {
     height: 100%;
     width: 100%;

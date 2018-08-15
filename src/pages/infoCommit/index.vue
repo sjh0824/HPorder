@@ -10,7 +10,7 @@
       </div>
       <div class="commitImg">
         <div class="img">
-          <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+          <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
         </div>
         <div class="infos">
           <p>
@@ -138,19 +138,21 @@
           float: left;
         }
         .img{
-          width: 160px;
+          width: 140px;
           height: 160px;
           img{
+            display: block;
             width: 100%;
             height: 100%;
+            margin: 0 auto;
           }
         }
         .infos{
           width: calc(100% - 165px);
           height: 100%;
-          padding-left: 5px;
+          padding-left: 25px;
           p{
-            line-height: 16px;
+            line-height: 19px;
             color: rgba(87, 87, 87, 0.9);
             font-size: 11px;
             text-align: left;

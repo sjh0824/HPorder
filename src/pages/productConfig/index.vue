@@ -27,6 +27,24 @@
         <div :class="{ borderLines: currentNum==1}"  @click="configDetail('1')">
           最受欢迎（四核i5、32G DDR4、500G、集显）
         </div>
+        <div :class="{ borderLines: currentNum==2}"  @click="configDetail('2')">
+          日常办公（双核 i5、16G DDR4、500G、集显）
+        </div>
+        <div :class="{ borderLines: currentNum==3}"  @click="configDetail('3')">
+          编程首选（四核 i7、32G DDR4、1T、集显）
+        </div>
+        <div :class="{ borderLines: currentNum==4}"  @click="configDetail('4')">
+          绘图必备（四核 i7、32G DDR4、2T、独显）
+        </div>
+        <div :class="{ borderLines: currentNum==5}"  @click="configDetail('5')">
+          最受欢迎（四核i5、32G DDR4、500G、集显）
+        </div>
+        <div :class="{ borderLines: currentNum==6}"  @click="configDetail('6')">
+          最受欢迎（四核i5、32G DDR4、500G、集显）
+        </div>
+        <div :class="{ borderLines: currentNum==7}"  @click="configDetail('7')">
+          最受欢迎（四核i5、32G DDR4、500G、集显）
+        </div>
       </scroll-view>
     </div>
   </div>

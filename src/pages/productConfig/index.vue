@@ -2,7 +2,7 @@
   <div class="vist-userInfo">
     <div class="proDescribe">
       <div class="productImg">
-        <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+        <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
       </div>
       <div class="productInfo">
         <span>定制你的G1移动工作站</span>
@@ -131,13 +131,15 @@
         width: 140px;
         height: 160px;
         img {
+          display: block;
           width: 100%;
           height: 100%;
+          margin: 0 auto;
         }
       }
       .productInfo {
-        width: calc(100% - 160px);
-        padding-left: 20px;
+        width: calc(100% - 165px);
+        padding-left: 25px;
         span {
           display: block;
           font-size: 16px;

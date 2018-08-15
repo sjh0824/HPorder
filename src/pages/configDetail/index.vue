@@ -210,7 +210,7 @@
             margin-right: 10px;
           }
         }
-        .cpuBorder{
+        div.cpuBorder{
           border: 2px solid #0096D9;
           span{
             line-height: 48px;

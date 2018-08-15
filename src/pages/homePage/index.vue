@@ -261,9 +261,9 @@
             font-size: 12px;
             color: #0096D6;
             text-align: center;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #F5F5F5;
             display: none;
-            background-color: #F5F5F5;
+            background-color: #FFF;
             p{
               line-height: 50px;
             }

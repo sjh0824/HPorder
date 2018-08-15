@@ -18,10 +18,10 @@
       </div>
       <div>
         <p class="singleName">DDR Memory</p>
-        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
+        <div :class="{ cpuBorder: cpuNum==1}" @click="cpuChange('1')">
           <span>8G (4G*2) DDR4 2133</span><span class="priceDiff">- RMB 320</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
+        <div :class="{ cpuBorder: cpuNum==0}"  @click="cpuChange('0')">
           <span>8G (8G*1) DDR4 2133</span>
         </div>
         <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
@@ -30,10 +30,10 @@
       </div>
       <div>
         <p class="singleName">HDD</p>
-        <div :class="{ cpuBorder: cpuNum==1}" @click="cpuChange('1')">
+        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
           <span>1T 7200(3.5")</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==0}"  @click="cpuChange('0')">
+        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
           <span>SSD 256G M.2 PCIe NVMe</span><span class="priceDiff">+ RMB 450</span>
         </div>
         <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
@@ -42,10 +42,10 @@
       </div>
       <div>
         <p class="singleName">电源</p>
-        <div :class="{ cpuBorder: cpuNum==1}" @click="cpuChange('1')">
+        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
           <span>Stander Power</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==0}"  @click="cpuChange('0')">
+        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
           <span>High Efficient Power</span><span class="priceDiff">+ RMB 100</span>
         </div>
         <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
@@ -54,10 +54,10 @@
       </div>
       <div>
         <p class="singleName">OS</p>
-        <div :class="{ cpuBorder: cpuNum==1}" @click="cpuChange('1')">
+        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
           <span>Windows 10 64位</span>
         </div>
-        <div :class="{ cpuBorder: cpuNum==0}"  @click="cpuChange('0')">
+        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
           <span>Windows 7 Pro 32位(中文版)</span><span class="priceDiff">+ RMB 900</span>
         </div>
         <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">

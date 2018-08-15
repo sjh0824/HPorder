@@ -15,8 +15,8 @@
           <div class="productNav"  :class="{ bottomLines: currentNum==1}" @click="detailContent('1')">规格</div>
           <div class="productNav"  :class="{ bottomLines: currentNum==2}" @click="detailContent('2')">视频</div>
         </div>
-      <scroll-view scroll-y>
-          <div :class="{detailText: currentNum==0}">
+      <scroll-view scroll-y :scroll-top=scrollTop :class="{detailText: currentNum==0}">
+          <div>
             <p>这款高性能笔记本电脑搭载高速处理器和显卡，不仅具有经过认证的出色性能，而且价格经济实惠，能为您的项目提供强有力的支持。</p>
             <p>Windows 10 专业版或其他操作系统可选</p>
             <p> 高性能</p>
@@ -52,24 +52,28 @@
             <p> 借助惠普功能强大的扩展坞解决方案，摆脱杂乱无章的接线，打造整洁利落的工作空间。具有 Thunderbolt™ 连接功能，传输速度快如闪电，让您体验出色性能。</p>
             <p>8、 Windows 10 专业版或其他操作系统可选</p>
           </div>
-        <div :class="{detailText: currentNum==1}">
-            <p>1、操作系统</p>
-            <p>Windows 10 Pro 64 – 惠普建议使用 Windows 10 Pro。 1</p>
-            <p>Windows 10 家庭版 64 1</p>
-            <p>Windows 10 Pro for Workstations 64 位 1</p>
-            <p>FreeDOS 2.0</p>
-            <p>2.、处理器系列</p>
-            <p>第八代英特尔® 酷睿™ i7处理器（i7-8750H、i7-8850H）</p>
-            <p>第八代英特尔® 酷睿™ i5处理器（i5-8300H、i5-8400H）</p>
-            <p>英特尔® 至强® E3处理器（E3-2176M、E3-2186M） 2,3</p>
-            <p>3、处理器</p>
-            <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i7-8750H 处理器（2.2 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.1 GHz、9 MB 高速缓存、6 核）</p>
-            <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i5-8300H 处理器（2.6 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.0 GHz、8 MB 高速缓存、4 核）</p>
-            <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i5-8400H 博锐™ 处理器（2.5 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.2 GHz、8 MB 高速缓存、4 核）</p>
-            <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i7-8850H 博锐™ 处理器（2.6 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.3 GHz、9 MB 高速缓存、6 核）</p>
-            <p>带英特尔® UHD P630显卡的英特尔® 至强® E 2176M 博锐™ 处理器（2.7 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.4 GHz、12 MB 高速缓存、6 核） 2,3,4</p>
+      </scroll-view>
+      <scroll-view scroll-y :scroll-top=scrollTop  :class="{detailText: currentNum==1}">
+        <div>
+          <p>1、操作系统</p>
+          <p>Windows 10 Pro 64 – 惠普建议使用 Windows 10 Pro。 1</p>
+          <p>Windows 10 家庭版 64 1</p>
+          <p>Windows 10 Pro for Workstations 64 位 1</p>
+          <p>FreeDOS 2.0</p>
+          <p>2.、处理器系列</p>
+          <p>第八代英特尔® 酷睿™ i7处理器（i7-8750H、i7-8850H）</p>
+          <p>第八代英特尔® 酷睿™ i5处理器（i5-8300H、i5-8400H）</p>
+          <p>英特尔® 至强® E3处理器（E3-2176M、E3-2186M） 2,3</p>
+          <p>3、处理器</p>
+          <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i7-8750H 处理器（2.2 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.1 GHz、9 MB 高速缓存、6 核）</p>
+          <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i5-8300H 处理器（2.6 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.0 GHz、8 MB 高速缓存、4 核）</p>
+          <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i5-8400H 博锐™ 处理器（2.5 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.2 GHz、8 MB 高速缓存、4 核）</p>
+          <p>带英特尔® UHD 630 显卡的英特尔® 酷睿™i7-8850H 博锐™ 处理器（2.6 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.3 GHz、9 MB 高速缓存、6 核）</p>
+          <p>带英特尔® UHD P630显卡的英特尔® 至强® E 2176M 博锐™ 处理器（2.7 GHz 基本频率、采用英特尔® Turbo Boost 技术可高达 4.4 GHz、12 MB 高速缓存、6 核） 2,3,4</p>
         </div>
-        <div :class="{detailText: currentNum==2}">
+      </scroll-view>
+      <scroll-view scroll-y :scroll-top=scrollTop :class="{detailText: currentNum==2}">
+        <div>
 
         </div>
       </scroll-view>
@@ -86,7 +90,8 @@
   export default {
     data() {
       return {
-        currentNum:0
+        currentNum:0,
+        scrollTop:0
       }
     },
 
@@ -123,6 +128,7 @@
     methods: {
       detailContent(index){
         this.currentNum = index;
+        this.scrollTop = 0;
       },
       startCustom(index){
         wx.navigateTo({
@@ -198,18 +204,17 @@
       }
       scroll-view{
         height: calc(100% - 40px);
+        display: none;
         div{
-          display: none;
           padding: 10px 10px;
           color: #575757;
           font-size: 12px;
           text-align: left;
           line-height: 17px;
         }
-        div.detailText{
-          display: block;
-
-        }
+      }
+      scroll-view.detailText{
+        display: block;
       }
     }
     .customized{

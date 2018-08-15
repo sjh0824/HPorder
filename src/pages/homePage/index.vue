@@ -1,7 +1,7 @@
 <template>
   <div class="vist-userInfo">
       <div class="sowingMap">
-        <swiper :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+        <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
             <swiper-item  v-for="(item,index) in imgUrls" :key="index">
               <image :src="item" class="slide-image" style="width: 100%;height: 100%;"/>
             </swiper-item>
@@ -23,24 +23,24 @@
             </div>
         </div>
         <div class="rightCon">
-        <scroll-view scroll-y>
+        <scroll-view scroll-y  :scroll-top=scrollTop>
           <div class="rightModel" :data-modelid="0" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
             <p>惠普战 99 G1移动工作站</p>
           </div>
-          <div class="rightModel">
+          <div class="rightModel" :data-modelid="1" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
             <p>惠普战 99 G1移动工作站</p>
           </div>
-          <div class="rightModel">
+          <div class="rightModel" :data-modelid="2" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
             <p>惠普战 99 G1移动工作站</p>
           </div>
-          <div class="rightModel">
+          <div class="rightModel" :data-modelid="3" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
             <p>惠普战 99 G1移动工作站</p>
           </div>
-          <div class="rightModel">
+          <div class="rightModel"  :data-modelid="4" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
             <p>惠普战 99 G1移动工作站</p>
           </div>
@@ -77,6 +77,7 @@
       return {
         currentNum:0,
         childCurNum:0,
+        scrollTop:0,
         authorLoc: false,
         arrImage: [],
         checked: false,
@@ -88,10 +89,6 @@
           'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
           'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
         ],
-        indicatorDots: true,
-        autoplay: true,
-        interval: 5000,
-        duration: 1000,
         dtasets:[{name:'热门机型',child:[]},{name:'台式机',child:[{name:'Elite',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]},{name:'笔记本',child:[{name:'Elite',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]}]
       }
     },
@@ -153,10 +150,12 @@
       changeNav(e){
         console.log(e)
         this.childCurNum = 0;
+        this.scrollTop = 0;
         this.currentNum = e.currentTarget.dataset.parentid
       },
       changeChildNav(e){
         console.log(e)
+        this.scrollTop = 0;
         this.childCurNum = e.currentTarget.dataset.childid
       },
       detailsPage(e){
@@ -253,8 +252,7 @@
           }
           .icon-bijibendiannao3{
             width: 17px;
-            margin-left: 9px;
-            font-size: 20px;
+            font-size: 19px;
           }
           .childModel{
             width: 100%;

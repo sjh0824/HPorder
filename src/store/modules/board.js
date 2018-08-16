@@ -8,6 +8,7 @@ const state = {
   avatarUrl: '',
   actId:'',
   sessionID:'',
+  authorizeFlag: false,
   computerInfo:{
     name:'',
     cpu:'Intel Core i3-6100 3.7G 3M 2133',

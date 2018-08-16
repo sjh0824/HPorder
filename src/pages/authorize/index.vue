@@ -1,7 +1,7 @@
 <template>
-  <div class="vist-userInfo">
+  <div class="authorizes-userInfo">
     <!--<web-view src="https://www.hejinkai.com/51talk"></web-view>-->
-    <div class="containers">
+    <div class="authorizes">
       <div class="logo">
         <img src="/static/images/timg.jpg" alt="">
         <p style="color: #000;font-size: 18px;">惠普</p>
@@ -63,11 +63,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .vist-userInfo {
+  .authorizes-userInfo {
     padding: 40px;
     background-color: #fff;
     justify-content: initial;
-    .containers {
+    .authorizes {
       margin: 0 auto;
       font-size: 14px;
       color: #ccc;

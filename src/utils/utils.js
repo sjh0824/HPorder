@@ -1,4 +1,4 @@
-function login(that,flag) {
+function login(that) {
   console.log(new Date().getTime())
   wx.login({
     success: function (res) {
@@ -23,16 +23,9 @@ function login(that,flag) {
             header: {'content-type': 'application/x-www-form-urlencoded'},
             success: function (res) {
               if (res.data.success) {
-                console.log(new Date().getTime())
+                console.log(new Date().getTime());
+                that.$store.state.board.authorizeFlag = true;
                 that.$store.state.board.sessionID = res.data.sessionID;
-                if(flag){
-
-                }else{
-                  wx.redirectTo({
-                    url: '/pages/homePage/main'
-                  })
-                }
-
               }
             }
           })

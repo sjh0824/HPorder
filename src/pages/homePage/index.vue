@@ -1,5 +1,5 @@
 <template>
-  <div class="vist-userInfo">
+  <div class="vist-userInfo" v-if="authorizeFlag == false">
       <div class="sowingMap">
         <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
             <swiper-item  v-for="(item,index) in imgUrls" :key="index">
@@ -59,7 +59,7 @@
     </div>
     <div class="maskModel" :class="{maskBlock: authorLoc== true}">
       <div class="maskContainer">
-          <div class="maskText">“司马e”要获取你的地理位置，是否允许？</div>
+          <div class="maskText">“CTO计算器”要获取你的地理位置，是否允许？</div>
           <div class="maskBtn">
             <button @click="cancle()">取消</button>
             <button open-type="openSetting" @opensetting='handlerLocation' class="confirm">确定</button>
@@ -67,10 +67,32 @@
       </div>
     </div>
   </div>
+  <div class="authorizes-userInfo" v-else>
+    <!--<web-view src="https://www.hejinkai.com/51talk"></web-view>-->
+    <div class="authorizes">
+      <div class="logo">
+        <img src="/static/images/timg.jpg" alt="">
+        <p style="color: #000;font-size: 18px;">惠普</p>
+        <p>CTO 计算器</p>
+      </div>
+      <p style="border-top:1px solid #ccc;width: 100%;margin: 60px 0 0 0;"></p>
+      <div class="info">
+        <p>该程序将获得以下授权</p>
+        <p><span class="dot">·</span><span>获得您的公开信息（头像、昵称等）</span></p>
+        <p>(取消授权您可能错过很多功能哦～)</p>
+      </div>
+      <div class="btn">
+        <div>
+          <button open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="save-btn">立即授权</button>
+        </div>
+      </div>
+    </div>
 
+  </div>
 </template>
 
 <script>
+  import utils from "../../utils/utils.js";
   import QQMapWX from '../../../static/qqmap-wx-jssdk.min'
   export default {
     data() {
@@ -106,7 +128,13 @@
               that.location(that,QQMapWX);
             }
           }
-
+          // if (res.authSetting['scope.userInfo']) {
+          //   // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          //   utils.login(that)
+          // }
+          // else {
+          //   this.$store.state.board.authorizeFlag = false;
+          // }
         }
       })
     },
@@ -189,6 +217,13 @@
             })
           }
         })
+      },
+      bindGetUserInfo() {
+        this.login(this);
+      },
+      login(){
+        var that = this;
+        utils.login(that);
       }
     },
     async onPullDownRefresh() {
@@ -199,11 +234,12 @@
     created() {
     },
     computed: {
-
+      authorizeFlag() {
+        return this.$store.state.board.authorizeFlag
+      },
     },
     mounted() {
       var that = this;
-
     }
   }
 </script>
@@ -382,6 +418,78 @@
     }
     div.maskBlock{
       display: block;
+    }
+  }
+
+  .authorizes-userInfo {
+    padding: 40px;
+    background-color: #fff;
+    justify-content: initial;
+    .authorizes {
+      margin: 0 auto;
+      font-size: 14px;
+      color: #ccc;
+      .logo {
+        img {
+          display: block;
+          width: 70px;
+          height: 70px;
+          margin: 0 auto;
+        }
+        p {
+          text-align: center;
+          margin-top: 5px;
+        }
+      }
+      .info {
+        width: 100%;
+        font-size: 12px;
+        padding: 10px;
+        box-sizing: border-box;
+        p {
+          line-height: 24px;
+          span {
+            display: inline-block;
+            vertical-align: middle;
+          }
+          .dot {
+            /*font-size: 12px;*/
+            font-weight: bold;
+            padding-right: 5px;
+          }
+        }
+      }
+      .btn {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 60px;
+        div {
+          width: 100%;
+          display: inline-block;
+          text-align: center;
+          button {
+            font-size: 14px;
+            font-family: "Microsoft YaHei UI Light";
+            border: 0;
+            margin: 0 auto;
+          }
+          .save-btn {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            margin-top: 15px;
+            border-radius: 3px;
+            box-sizing: border-box;
+            background-color:  #0096D6;
+            color: #fff;
+          }
+          button[type="default"] {
+            background-color: #f1f1f1;
+            color: #000;
+          }
+        }
+      }
     }
   }
 </style>

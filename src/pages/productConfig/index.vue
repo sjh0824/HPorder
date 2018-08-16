@@ -5,14 +5,14 @@
         <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
       </div>
       <div class="productInfo">
-        <span>定制你的G1移动工作站</span>
+        <span>{{computerInfo.name}}</span>
         <p>
-          Intel Core i3-6100 3.7G 3M 2133
+          {{computerInfo.cpu}}
         </p>
-        <p> 32G DDR4 2400 SODIMM</p>
-        <p>2*1T(SATA 6G+1TB NVMe SSD)+1*512G(HP Turbo Drive G2 or NVMe SSD)</p>
-        <p>英特尔® HD Graphics 核芯显卡</p>
-        <p>Windows 10 家庭版 64</p>
+        <p>{{computerInfo.ddr}}</p>
+        <p>{{computerInfo.hdd}}</p>
+        <p>{{computerInfo.card}}</p>
+        <p>{{computerInfo.os}}</p>
       </div>
     </div>
     <hr class="lines">
@@ -104,7 +104,11 @@
 
     created() {
     },
-    computed: {},
+    computed: {
+      computerInfo() {
+        return this.$store.state.board.computerInfo
+      },
+    },
     mounted() {
       var that = this;
 

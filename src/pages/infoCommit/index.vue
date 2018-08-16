@@ -5,7 +5,7 @@
       </div>
     <div class="commitInfo">
       <div class="commitTitle">
-        <p>  您定制的产品型号是  惠普战 99 G1移动工作站</p>
+        <p>  您定制的产品型号是  {{computerInfo.name}}</p>
         <p> 具体参数如下：</p>
       </div>
       <div class="commitImg">
@@ -14,13 +14,13 @@
         </div>
         <div class="infos">
           <p>
-            Intel Core i3-6100 3.7G 3M 2133
+            {{computerInfo.cpu}}
           </p>
-          <p> 32G DDR4 2400 SODIMM</p>
-          <p>2*1T(SATA 6G+1TB NVMe SSD)+1*512G(HP Turbo Drive G2 or NVMe SSD)</p>
-          <p>英特尔® HD Graphics 核芯显卡</p>
-          <p>Windows 10 家庭版 64</p>
-          <p>铂金电源</p>
+          <p>{{computerInfo.ddr}}</p>
+          <p>{{computerInfo.hdd}}</p>
+          <p>{{computerInfo.card}}</p>
+          <p>{{computerInfo.os}}</p>
+          <p>{{computerInfo.power}}</p>
         </div>
       </div>
       <div class="configPrice">
@@ -86,7 +86,11 @@
 
     created() {
     },
-    computed: {},
+    computed: {
+      computerInfo() {
+        return this.$store.state.board.computerInfo
+      },
+    },
     mounted() {
       var that = this;
 

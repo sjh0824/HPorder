@@ -24,7 +24,7 @@
         </div>
         <div class="rightCon">
         <scroll-view scroll-y  :scroll-top=scrollTop>
-          <div class="rightModel" :data-modelid="0" @click="detailsPage">
+          <div class="rightModel" :data-modelid="0" data-computername="惠普战 99 G1移动工作站" @click="detailsPage">
             <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
             <p>惠普战 99 G1移动工作站</p>
           </div>
@@ -79,11 +79,6 @@
         childCurNum:0,
         scrollTop:0,
         authorLoc: false,
-        arrImage: [],
-        checked: false,
-        qrcodeUrl: '',
-        ctxHeight: 650,
-        backImg: require('../../../static/img/shareBack.png'),
         imgUrls: [
           'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
           'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
@@ -159,6 +154,7 @@
         this.childCurNum = e.currentTarget.dataset.childid
       },
       detailsPage(e){
+        this.$store.state.board.computerInfo.name =  e.currentTarget.dataset.computername
         wx.navigateTo({
           url: '../detailPage/main?modelId='+ e.currentTarget.dataset.modelid
         })

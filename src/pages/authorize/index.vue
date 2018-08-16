@@ -1,13 +1,13 @@
 <template>
   <div class="vist-userInfo">
     <!--<web-view src="https://www.hejinkai.com/51talk"></web-view>-->
-    <div :style="{'width':(getWindowWidth-40)+'px'}" class="container">
-      <div class="logo" style="margin-top: 30px;">
-        <img src="/static/images/logo.jpg" alt="">
+    <div class="containers">
+      <div class="logo">
+        <img src="/static/images/timg.jpg" alt="">
         <p style="color: #000;font-size: 18px;">惠普</p>
-        <p>分享足迹-更多人了解景点信息</p>
+        <p>CTO 计算器</p>
       </div>
-      <p style="border-top:1px solid #ccc;width: 100%;margin: 60px 0 10px 0;"></p>
+      <p style="border-top:1px solid #ccc;width: 100%;margin: 60px 0 0 0;"></p>
       <div class="info">
         <p>该程序将获得以下授权</p>
         <p><span class="dot">·</span><span>获得您的公开信息（头像、昵称等）</span></p>
@@ -44,17 +44,9 @@
       bindGetUserInfo() {
         this.login(this);
       },
-      backHomePage() {
-        var path = this.currentPages + "?scenicSpotId=" + this.scenicSpotId;
-        console.log(this.currentPages)
-        console.log(path)
-        wx.redirectTo({
-          url: "/" + path
-        })
-      },
       login(){
         var that = this;
-        utils.login(that);
+        utils.login(that,false);
       }
 
     },
@@ -72,28 +64,32 @@
 
 <style lang="scss" scoped>
   .vist-userInfo {
+    padding: 40px;
     background-color: #fff;
     justify-content: initial;
-    .container {
+    .containers {
       margin: 0 auto;
       font-size: 14px;
       color: #ccc;
       .logo {
         img {
           display: block;
-          width: 50px;
-          height: 50px;
+          width: 70px;
+          height: 70px;
           margin: 0 auto;
         }
         p {
           text-align: center;
+          margin-top: 5px;
         }
       }
       .info {
         width: 100%;
         font-size: 12px;
+        padding: 10px;
+        box-sizing: border-box;
         p {
-          margin-top: 10px;
+          line-height: 24px;
           span {
             display: inline-block;
             vertical-align: middle;
@@ -106,7 +102,8 @@
         }
       }
       .btn {
-        width: 100%;
+        width: 90%;
+        margin: 0 auto;
         margin-top: 60px;
         div {
           width: 100%;
@@ -126,7 +123,7 @@
             margin-top: 15px;
             border-radius: 3px;
             box-sizing: border-box;
-            background-color: #e64340;
+            background-color:  #0096D6;
             color: #fff;
           }
           button[type="default"] {

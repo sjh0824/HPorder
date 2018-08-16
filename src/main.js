@@ -34,6 +34,7 @@ export default {
       navigationBarBackgroundColor: "white",
       navigationBarTitleText: "惠普",
       navigationBarTextStyle: "black"
-    }
+    },
+    debug: true
   }
 };

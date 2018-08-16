@@ -106,7 +106,7 @@
           'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
           'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
         ],
-        dtasets:[{name:'热门机型',child:[]},{name:'台式机',child:[{name:'Elite',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]},{name:'笔记本',child:[{name:'Elite',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]}]
+        dtasets:[{name:'热门机型',parentId:'1',child:[]},{name:'台式机',parentId:'2',child:[{name:'Elite',childId:'2',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]},{name:'笔记本',child:[{name:'Elite',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]}]
       }
     },
 

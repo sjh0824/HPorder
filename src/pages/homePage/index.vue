@@ -1,5 +1,5 @@
 <template>
-  <div class="vist-userInfo" v-if="authorizeFlag == false">
+  <div class="vist-userInfo" v-if="authorizeFlag == true">
       <div class="sowingMap">
         <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
             <swiper-item  v-for="(item,index) in imgUrls" :key="index">
@@ -128,13 +128,13 @@
               that.location(that,QQMapWX);
             }
           }
-          // if (res.authSetting['scope.userInfo']) {
-          //   // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          //   utils.login(that)
-          // }
-          // else {
-          //   this.$store.state.board.authorizeFlag = false;
-          // }
+           if (res.authSetting['scope.userInfo']) {
+             // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+             utils.login(that)
+           }
+           else {
+             this.$store.state.board.authorizeFlag = false;
+           }
         }
       })
     },

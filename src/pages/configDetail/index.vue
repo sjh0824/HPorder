@@ -7,7 +7,9 @@
       <div v-for="(item,index) in proDetail" :key="index">
         <p class="singleName">{{item.catg.catgName}}</p>
         <div v-if="item.parts.length>0" v-for="(items,ind) in item.parts" :key="ind" :class="{ cpuBorder: standardNum==items.standard, cpuBorder: dataIndex[index].num==items.partsId}" @click="detailChange(index,items)">
-          <span>{{items.partsName}}</span><span class="priceDiff">RMB {{items.prices}}</span>
+          <span>{{items.partsName}}</span>
+          <span class="priceDiff" v-if="items.priceDiff>0">+ RMB {{items.priceDiff}}</span>
+          <span class="priceDiff" v-else-if="items.priceDiff<0">- RMB {{Math.abs(items.priceDiff)}}</span>
         </div>
       </div>
       <!--<div>-->
@@ -118,9 +120,18 @@
               for(var i=0;i<that.proDetail.length;i++){
                 if(that.proDetail[i].parts){
                   var dataSet = that.proDetail[i].parts;
+                  var initPrice = '';
                   for(var j=0;j<dataSet.length;j++){
                     if(dataSet[j].standard==1){
                       that.dataIndex[i].price = parseInt(dataSet[j].prices);
+                      initPrice = parseInt(dataSet[j].prices)
+                    }
+                  }
+                  for(var j=0;j<dataSet.length;j++){
+                    if(dataSet[j].standard!=1){
+                      dataSet[j].priceDiff =  parseInt(dataSet[j].prices)-initPrice;
+                    }else{
+                      dataSet[j].priceDiff = 0;
                     }
                   }
                 }

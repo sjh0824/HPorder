@@ -48,24 +48,14 @@
       console.log(5555555)
     },
     onShareAppMessage(res) {
-      var that = this;
       if (res.from === 'button') {
         // 来自页面内转发按钮
         console.log(res.target)
       }
 
-      var actId = that.$store.state.board.actId
-      var helpId = that.$store.state.board.myHelpId
-      var path = "/pages/activePower/main";
-
-      if (actId && helpId) {
-        path = path + "?actId=" + actId + "&helpId=" + helpId
-      } else {
-
-      }
       return {
         title: '分享活动',
-        path: path,
+        path: "/pages/infoCommit/main" ,
         success: function () {
 
         }
@@ -74,8 +64,11 @@
     },
     methods: {
       goHomePage(){
-        wx.navigateBack({
-          delta: 4
+        // wx.navigateBack({
+        //   delta: 4
+        // })
+        wx.navigateTo({
+          url: '../homePage/main'
         })
       }
     },

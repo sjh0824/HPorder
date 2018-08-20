@@ -85,6 +85,8 @@
   export default {
     data() {
       return {
+        productId:'',
+        preCtoId:'',
         standardNum:1,
         proDetail:[],
         dataIndex:[{name:'cpuNum',num:'',price:0},{name:'ddrNum',num:'',price:0},{name:'hddNum',num:'',price:0},{name:'powerNum',num:'',price:0},{name:'osNum',num:'',price:0}],
@@ -95,6 +97,8 @@
     onLoad(option) {
       var that = this;
       console.log(4444444)
+      that.productId = option.productId
+      that.preCtoId = option.preCtoId
       wx.request({
         url: that.$store.state.board.urlHttp +'/wechatapi/product/selectParts',
         method: "POST",
@@ -124,24 +128,14 @@
       })
     },
     onShareAppMessage(res) {
-      var that = this;
       if (res.from === 'button') {
         // 来自页面内转发按钮
         console.log(res.target)
       }
 
-      var actId = that.$store.state.board.actId
-      var helpId = that.$store.state.board.myHelpId
-      var path = "/pages/activePower/main";
-
-      if (actId && helpId) {
-        path = path + "?actId=" + actId + "&helpId=" + helpId
-      } else {
-
-      }
       return {
         title: '分享活动',
-        path: path,
+        path: "/pages/configDetail/main?productId="+this.productId+"&preCtoId="+this.preCtoId ,
         success: function () {
 
         }

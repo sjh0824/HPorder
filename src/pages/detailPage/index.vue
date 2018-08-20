@@ -101,6 +101,7 @@
   export default {
     data() {
       return {
+        productId:'',
         currentNum: 0,
         scrollTop: 0,
         proInfos:''
@@ -112,6 +113,7 @@
       that.currentNum = 0;
       console.log(option)
       console.log(22222222)
+      that.productId = option.productId
       that.proInfos = ''
       wx.request({
         url: that.$store.state.board.urlHttp +'/wechatapi/product/getProductById',
@@ -136,26 +138,16 @@
       })
     },
     onShareAppMessage(res) {
-      var that = this;
       if (res.from === 'button') {
         // 来自页面内转发按钮
         console.log(res.target)
-
       }
 
-      var actId = that.$store.state.board.actId
-      var helpId = that.$store.state.board.myHelpId
-      var path = "/pages/activePower/main";
-
-      if (actId && helpId) {
-        path = path + "?actId=" + actId + "&helpId=" + helpId
-      } else {
-
-      }
       return {
         title: '分享活动',
-        path: path,
+        path: "/pages/detailPage/main?productId="+this.productId ,
         success: function () {
+
         }
       }
 

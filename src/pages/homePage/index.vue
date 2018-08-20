@@ -112,6 +112,8 @@
     onLoad() {
       console.log(111111111)
       var that = this;
+      that.dtasets =[];
+      that.productItem =[];
       wx.request({
         url: that.$store.state.board.urlHttp + '/wechatapi/product/findProDuctCatgList',
         method: "POST",
@@ -155,28 +157,16 @@
       })
     },
     onShareAppMessage(res) {
-      var that = this;
       if (res.from === 'button') {
         // 来自页面内转发按钮
         console.log(res.target)
       }
 
-      var actId = that.$store.state.board.actId
-      var helpId = that.$store.state.board.myHelpId
-      var path = "/pages/activePower/main";
-
-      if (actId && helpId) {
-        path = path + "?actId=" + actId + "&helpId=" + helpId
-      } else {
-
-      }
       return {
         title: '分享活动',
-        path: path,
+        path: "/pages/homePage/main",
         success: function () {
-//          wx.redirectTo({
-//            url:"/pages/showPages/main"
-//          })
+
         }
       }
 

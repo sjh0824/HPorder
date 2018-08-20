@@ -1,7 +1,7 @@
 <template>
   <div class="vist-userInfo" v-if="authorizeFlag === true">
     <div class="sowingMap">
-      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" circular="true">
         <swiper-item v-for="(item,index) in imgUrls" :key="index">
           <image :src="item" class="slide-image" style="width: 100%;height: 100%;"/>
         </swiper-item>

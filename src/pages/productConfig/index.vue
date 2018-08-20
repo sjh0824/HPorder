@@ -21,30 +21,33 @@
           推荐配置
         </div>
       <scroll-view scroll-y>
-        <div :class="{ borderLines: currentNum==0}" @click="configDetail('0')">
-          标准配置（双核i3、16G DDR4、1T、集显）
+        <div v-for="(item,index) in proConfig" :class="{ borderLines: currentNum==item.preCtoId}" @click="configDetail(productId,item)">
+         {{item.preName}}
         </div>
-        <div :class="{ borderLines: currentNum==1}"  @click="configDetail('1')">
-          最受欢迎（四核i5、32G DDR4、500G、集显）
-        </div>
-        <div :class="{ borderLines: currentNum==2}"  @click="configDetail('2')">
-          日常办公（双核 i5、16G DDR4、500G、集显）
-        </div>
-        <div :class="{ borderLines: currentNum==3}"  @click="configDetail('3')">
-          编程首选（四核 i7、32G DDR4、1T、集显）
-        </div>
-        <div :class="{ borderLines: currentNum==4}"  @click="configDetail('4')">
-          绘图必备（四核 i7、32G DDR4、2T、独显）
-        </div>
-        <div :class="{ borderLines: currentNum==5}"  @click="configDetail('5')">
-          最受欢迎（四核i5、32G DDR4、500G、集显）
-        </div>
-        <div :class="{ borderLines: currentNum==6}"  @click="configDetail('6')">
-          最受欢迎（四核i5、32G DDR4、500G、集显）
-        </div>
-        <div :class="{ borderLines: currentNum==7}"  @click="configDetail('7')">
-          最受欢迎（四核i5、32G DDR4、500G、集显）
-        </div>
+        <!--<div :class="{ borderLines: currentNum==0}" @click="configDetail('0')">-->
+          <!--标准配置（双核i3、16G DDR4、1T、集显）-->
+        <!--</div>-->
+        <!--<div :class="{ borderLines: currentNum==1}"  @click="configDetail('1')">-->
+          <!--最受欢迎（四核i5、32G DDR4、500G、集显）-->
+        <!--</div>-->
+        <!--<div :class="{ borderLines: currentNum==2}"  @click="configDetail('2')">-->
+          <!--日常办公（双核 i5、16G DDR4、500G、集显）-->
+        <!--</div>-->
+        <!--<div :class="{ borderLines: currentNum==3}"  @click="configDetail('3')">-->
+          <!--编程首选（四核 i7、32G DDR4、1T、集显）-->
+        <!--</div>-->
+        <!--<div :class="{ borderLines: currentNum==4}"  @click="configDetail('4')">-->
+          <!--绘图必备（四核 i7、32G DDR4、2T、独显）-->
+        <!--</div>-->
+        <!--<div :class="{ borderLines: currentNum==5}"  @click="configDetail('5')">-->
+          <!--最受欢迎（四核i5、32G DDR4、500G、集显）-->
+        <!--</div>-->
+        <!--<div :class="{ borderLines: currentNum==6}"  @click="configDetail('6')">-->
+          <!--最受欢迎（四核i5、32G DDR4、500G、集显）-->
+        <!--</div>-->
+        <!--<div :class="{ borderLines: currentNum==7}"  @click="configDetail('7')">-->
+          <!--最受欢迎（四核i5、32G DDR4、500G、集显）-->
+        <!--</div>-->
       </scroll-view>
     </div>
   </div>
@@ -55,13 +58,33 @@
   export default {
     data() {
       return {
-        currentNum:0
+        productId:'',
+        currentNum:'',
+        proConfig:[]
       }
     },
-
-    onLoad() {
-      this.currentNum = 0;
-      console.log(333333)
+    onLoad(option) {
+      var that = this;
+      that.currentNum = 0;
+      that.productId = option.productId
+      console.log(option.productId)
+      wx.request({
+        url: that.$store.state.board.urlHttp +'/wechatapi/product/findProductPreCtoList',
+        method: "POST",
+        data:  {productId:option.productId},
+        header: {'content-type': 'application/x-www-form-urlencoded'},
+        dataType:'json',
+        success: function (res) {
+          console.log(res)
+          if (res.data.success) {
+            if(res.data.data){
+              that.currentNum = res.data.data[0].preCtoId;
+              that.$store.state.board.computerInfo.name = res.data.data[0].preName;
+              that.proConfig = res.data.data;
+            }
+          }
+        }
+      })
     },
     onShareAppMessage(res) {
       var that = this;
@@ -89,11 +112,11 @@
 
     },
     methods: {
-      configDetail(index){
-        this.currentNum = index;
-
+      configDetail(productId,item){
+        this.currentNum = item.preCtoId;
+        this.$store.state.board.computerInfo.name = item.preName;
         wx.navigateTo({
-          url: '../configDetail/main?id='+index
+          url: '../configDetail/main?productId='+productId  +"&preCtoId="+item.preCtoId
         })
       }
     },

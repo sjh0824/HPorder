@@ -6,8 +6,7 @@
     onShow(option) {
       var that = this;
       console.log(option)
-      this.$store.state.board.actId= '6';
-
+      that.$store.state.board.authorizeFlag = '';
       wx.getSetting({
         success: (res) => {
           if (res.authSetting['scope.userInfo']) {
@@ -15,7 +14,7 @@
             utils.login(that)
           }
           else {
-            this.$store.state.board.authorizeFlag = false;
+            that.$store.state.board.authorizeFlag = false;
           }
         }
       })

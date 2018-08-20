@@ -1,73 +1,79 @@
 <template>
   <div class="vist-userInfo">
     <div class="configTitle">
-      <p>标准配置（双核i3、16G DDR4、1T、集显）</p>
+      <p>{{computerInfo.name}}</p>
     </div>
     <scroll-view scroll-y>
-      <div>
-        <p class="singleName">CPU</p>
-        <div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">
-            <span>Intel Core i3-6100 3.7G 3M 2133</span>
-        </div>
-        <div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">
-          <span>New Core i5-8500(3.0G/9M/6核)</span><span class="priceDiff">+ RMB 480</span>
-        </div>
-        <div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">
-          <span>New Core i7-8700(3.2G/12M/6核)</span><span class="priceDiff">+ RMB 780</span>
+      <div v-for="(item,index) in proDetail" :key="index">
+        <p class="singleName">{{item.catg.catgName}}</p>
+        <div v-if="item.parts.length>0" v-for="(items,ind) in item.parts" :key="ind" :class="{ cpuBorder: standardNum==items.standard, cpuBorder: dataIndex[index].num==items.partsId}" @click="detailChange(index,items)">
+          <span>{{items.partsName}}</span><span class="priceDiff">RMB {{items.prices}}</span>
         </div>
       </div>
-      <div>
-        <p class="singleName">DDR Memory</p>
-        <div :class="{ cpuBorder: ddrNum==1}" @click="ddrChange('1')">
-          <span>8G (4G*2) DDR4 2133</span><span class="priceDiff">- RMB 320</span>
-        </div>
-        <div :class="{ cpuBorder: ddrNum==0}"  @click="ddrChange('0')">
-          <span>8G (8G*1) DDR4 2133</span>
-        </div>
-        <div :class="{ cpuBorder: ddrNum==2}"  @click="ddrChange('2')">
-          <span>16G (16G*1)DDR4 2133</span><span class="priceDiff">+ RMB 970</span>
-        </div>
-      </div>
-      <div>
-        <p class="singleName">HDD</p>
-        <div :class="{ cpuBorder: hddNum==0}" @click="hddChange('0')">
-          <span>1T 7200(3.5")</span>
-        </div>
-        <div :class="{ cpuBorder: hddNum==1}"  @click="hddChange('1')">
-          <span>SSD 256G M.2 PCIe NVMe</span><span class="priceDiff">+ RMB 450</span>
-        </div>
-        <div :class="{ cpuBorder: hddNum==2}"  @click="hddChange('2')">
-          <span>SSD 512G PCIe NVMe</span><span class="priceDiff">+ RMB 780</span>
-        </div>
-      </div>
-      <div>
-        <p class="singleName">电源</p>
-        <div :class="{ cpuBorder: powerNum==0}" @click="powerChange('0')">
-          <span>Stander Power</span>
-        </div>
-        <div :class="{ cpuBorder: powerNum==1}"  @click="powerChange('1')">
-          <span>High Efficient Power</span><span class="priceDiff">+ RMB 100</span>
-        </div>
-        <div :class="{ cpuBorder: powerNum==2}"  @click="powerChange('2')">
-          <span>250W 珀金电源</span><span class="priceDiff">+ RMB 160</span>
-        </div>
-      </div>
-      <div>
-        <p class="singleName">OS</p>
-        <div :class="{ cpuBorder: osNum==0}" @click="osChange('0')">
-          <span>Windows 10 64位</span>
-        </div>
-        <div :class="{ cpuBorder: osNum==1}"  @click="osChange('1')">
-          <span>Windows 7 Pro 32位(中文版)</span><span class="priceDiff">+ RMB 900</span>
-        </div>
-        <div :class="{ cpuBorder: osNum==2}"  @click="osChange('2')">
-          <span>Windows 10 Pro 64位(中文版)</span><span class="priceDiff">+ RMB 900</span>
-        </div>
-      </div>
+      <!--<div>-->
+        <!--<p class="singleName">CPU</p>-->
+        <!--<div :class="{ cpuBorder: cpuNum==0}" @click="cpuChange('0')">-->
+            <!--<span>Intel Core i3-6100 3.7G 3M 2133</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: cpuNum==1}"  @click="cpuChange('1')">-->
+          <!--<span>New Core i5-8500(3.0G/9M/6核)</span><span class="priceDiff">+ RMB 480</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: cpuNum==2}"  @click="cpuChange('2')">-->
+          <!--<span>New Core i7-8700(3.2G/12M/6核)</span><span class="priceDiff">+ RMB 780</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<p class="singleName">DDR Memory</p>-->
+        <!--<div :class="{ cpuBorder: ddrNum==1}" @click="ddrChange('1')">-->
+          <!--<span>8G (4G*2) DDR4 2133</span><span class="priceDiff">- RMB 320</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: ddrNum==0}"  @click="ddrChange('0')">-->
+          <!--<span>8G (8G*1) DDR4 2133</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: ddrNum==2}"  @click="ddrChange('2')">-->
+          <!--<span>16G (16G*1)DDR4 2133</span><span class="priceDiff">+ RMB 970</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<p class="singleName">HDD</p>-->
+        <!--<div :class="{ cpuBorder: hddNum==0}" @click="hddChange('0')">-->
+          <!--<span>1T 7200(3.5")</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: hddNum==1}"  @click="hddChange('1')">-->
+          <!--<span>SSD 256G M.2 PCIe NVMe</span><span class="priceDiff">+ RMB 450</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: hddNum==2}"  @click="hddChange('2')">-->
+          <!--<span>SSD 512G PCIe NVMe</span><span class="priceDiff">+ RMB 780</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<p class="singleName">电源</p>-->
+        <!--<div :class="{ cpuBorder: powerNum==0}" @click="powerChange('0')">-->
+          <!--<span>Stander Power</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: powerNum==1}"  @click="powerChange('1')">-->
+          <!--<span>High Efficient Power</span><span class="priceDiff">+ RMB 100</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: powerNum==2}"  @click="powerChange('2')">-->
+          <!--<span>250W 珀金电源</span><span class="priceDiff">+ RMB 160</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<p class="singleName">OS</p>-->
+        <!--<div :class="{ cpuBorder: osNum==0}" @click="osChange('0')">-->
+          <!--<span>Windows 10 64位</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: osNum==1}"  @click="osChange('1')">-->
+          <!--<span>Windows 7 Pro 32位(中文版)</span><span class="priceDiff">+ RMB 900</span>-->
+        <!--</div>-->
+        <!--<div :class="{ cpuBorder: osNum==2}"  @click="osChange('2')">-->
+          <!--<span>Windows 10 Pro 64位(中文版)</span><span class="priceDiff">+ RMB 900</span>-->
+        <!--</div>-->
+      <!--</div>-->
     </scroll-view>
 
     <div class="priceCommit">
-      <div class="calPrice">RMB  12,345</div>
+      <div class="calPrice">RMB  {{totalPrice}}</div>
       <div class="commit" @click="infoCommit()">提交</div>
     </div>
 
@@ -79,17 +85,43 @@
   export default {
     data() {
       return {
-        cpuNum:0,
-        ddrNum:0,
-        hddNum:0,
-        powerNum:0,
-        osNum:0
+        standardNum:1,
+        proDetail:[],
+        dataIndex:[{name:'cpuNum',num:'',price:0},{name:'ddrNum',num:'',price:0},{name:'hddNum',num:'',price:0},{name:'powerNum',num:'',price:0},{name:'osNum',num:'',price:0}],
+        totalPrice: 0
       }
     },
 
-    onLoad() {
+    onLoad(option) {
+      var that = this;
       console.log(4444444)
-      this.cpuNum = 0;
+      wx.request({
+        url: that.$store.state.board.urlHttp +'/wechatapi/product/selectParts',
+        method: "POST",
+        data:{productId:option.productId,preCtoId:option.preCtoId},
+        header: {'content-type': 'application/x-www-form-urlencoded'},
+        dataType:'json',
+        success: function (res) {
+          that.proDetail = []
+          if (res.data.success) {
+            if(res.data.data){
+              console.log(res.data.data)
+              that.proDetail = res.data.data;
+              for(var i=0;i<that.proDetail.length;i++){
+                if(that.proDetail[i].parts){
+                  var dataSet = that.proDetail[i].parts;
+                  for(var j=0;j<dataSet.length;j++){
+                    if(dataSet[j].standard==1){
+                      that.dataIndex[i].price = parseInt(dataSet[j].prices);
+                    }
+                  }
+                }
+              }
+              that.totalPrices(that.dataIndex);
+            }
+          }
+        }
+      })
     },
     onShareAppMessage(res) {
       var that = this;
@@ -117,25 +149,29 @@
 
     },
     methods: {
-      cpuChange(index){
-        this.cpuNum = index
-      },
-      ddrChange(index){
-        this.ddrNum = index
-      },
-      hddChange(index){
-        this.hddNum = index
-      },
-      powerChange(index){
-        this.powerNum = index
-      },
-      osChange(index){
-        this.osNum = index
+      detailChange(index,parts){
+        var dataSet =  this.proDetail[index].parts;
+        for(var i=0;i<dataSet.length;i++){
+          if(dataSet[i].standard){
+            dataSet[i].standard = '';
+          }
+        }
+        this.dataIndex[index].num=parts.partsId
+        this.dataIndex[index].price=parts.prices
+        this.totalPrices(this.dataIndex);
       },
       infoCommit(){
         wx.navigateTo({
           url: '../infoCommit/main?id='
         })
+      },
+      totalPrices(data){
+        this.totalPrice = 0;
+        for(var k=0;k<data.length;k++){
+          if(data[k].price){
+            this.totalPrice += parseInt(data[k].price)
+          }
+        }
       }
     },
     async onPullDownRefresh() {
@@ -145,7 +181,11 @@
 
     created() {
     },
-    computed: {},
+    computed: {
+      computerInfo() {
+        return this.$store.state.board.computerInfo
+      }
+    },
     mounted() {
       var that = this;
 

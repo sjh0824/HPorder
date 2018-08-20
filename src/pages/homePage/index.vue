@@ -9,40 +9,24 @@
       </div>
     <div class="containers">
         <div class="leftNav">
-            <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-parentid="index" :class="{ hotModel: currentNum==index}" @click="changeNav">
+            <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-parentid="item.catgCode" :class="{ hotModel: currentNum==item.catgCode}" @click="changeNav(item)">
 
               <i class="icon iconfont icon-remen1" v-if="index==0"></i>
               <i class="icon iconfont icon-diannao" v-if="index==1"></i>
               <i class="icon iconfont icon-bijibendiannao" v-if="index==2"></i>
-              {{item.name}}
-              <div class="childModel" v-if="item.child.length>0" v-for="(items,ind) in item.child" :key="ind" :data-childid="ind"  :class="{ childHotModel: childCurNum==ind,childDis: currentNum==index}" @click="changeChildNav"  @touchstart.stop='changeChildNav'>
+              {{item.catgName}}
+              <div class="childModel" v-if="item.childList.length>0" v-for="(items,ind) in item.childList" :key="ind" :data-childid="items.catgCode"  :class="{ childHotModel: childCurNum==items.catgCode,childDis: currentNum==item.catgCode}" @click="changeChildNav(items)"  @touchstart.stop='changeChildNav(items)'>
                 <p>
-                  {{items.name}}{{items.lines}}
+                  {{items.catgName}}
                 </p>
               </div>
             </div>
         </div>
         <div class="rightCon">
         <scroll-view scroll-y  :scroll-top=scrollTop>
-          <div class="rightModel" :data-modelid="0" data-computername="惠普战 99 G1移动工作站" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
-            <p>惠普战 99 G1移动工作站</p>
-          </div>
-          <div class="rightModel" :data-modelid="1" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
-            <p>惠普战 99 G1移动工作站</p>
-          </div>
-          <div class="rightModel" :data-modelid="2" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
-            <p>惠普战 99 G1移动工作站</p>
-          </div>
-          <div class="rightModel" :data-modelid="3" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
-            <p>惠普战 99 G1移动工作站</p>
-          </div>
-          <div class="rightModel"  :data-modelid="4" @click="detailsPage">
-            <img class="rightImg" src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
-            <p>惠普战 99 G1移动工作站</p>
+          <div v-for="(item,index) in productItem" class="rightModel" :data-computername="item.productName" @click="detailsPage(item)">
+            <img class="rightImg" :src="item.filePath" alt="" mode="aspectFit">
+            <p>{{item.productName}}</p>
           </div>
         </scroll-view>
       </div>
@@ -67,7 +51,7 @@
       </div>
     </div>
   </div>
-  <div class="authorizes-userInfo" v-else>
+  <div class="authorizes-userInfo" v-else-if="authorizeFlag == false">
     <!--<web-view src="https://www.hejinkai.com/51talk"></web-view>-->
     <div class="authorizes">
       <div class="logo">
@@ -97,16 +81,17 @@
   export default {
     data() {
       return {
-        currentNum:0,
-        childCurNum:0,
+        currentNum:'',
+        childCurNum:'',
         scrollTop:0,
         authorLoc: false,
         imgUrls: [
-          'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-          'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+          'https://cto.hejinkai.com/static/file/201808/1.jpg',
+          'https://cto.hejinkai.com/static/file/201808/2.jpg',
+          'https://cto.hejinkai.com/static/file/201808/3.jpg'
         ],
-        dtasets:[{name:'热门机型',parentId:'1',child:[]},{name:'台式机',parentId:'2',child:[{name:'Elite',childId:'2',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]},{name:'笔记本',child:[{name:'Elite',lines:'精英系列'},{name:'Pro ',lines:'专家系列'}]}]
+        dtasets:[],
+        productItem:[]
       }
     },
 
@@ -128,13 +113,21 @@
               that.location(that,QQMapWX);
             }
           }
-//           if (res.authSetting['scope.userInfo']) {
-//             // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-//             utils.login(that)
-//           }
-//           else {
-//             this.$store.state.board.authorizeFlag = false;
-//           }
+        }
+      })
+      wx.request({
+        url: that.$store.state.board.urlHttp +'/wechatapi/product/findProDuctCatgList',
+        method: "POST",
+        header: {'content-type': 'application/x-www-form-urlencoded'},
+        success: function (res) {
+          console.log(res)
+          if (res.data.success) {
+            if(res.data.data){
+              that.currentNum = res.data.data[0].catgCode;
+              that.dtasets = res.data.data;
+              that.changeNav( res.data.data[0])
+            }
+          }
         }
       })
     },
@@ -170,21 +163,45 @@
         this.checked = false;
         wx.hideLoading()
       },
-      changeNav(e){
-        console.log(e)
-        this.childCurNum = 0;
-        this.scrollTop = 0;
-        this.currentNum = e.currentTarget.dataset.parentid
+      changeNav(parData){
+        console.log(parData)
+        var that = this;
+        that.childCurNum = 0;
+        that.scrollTop = 0;
+        that.currentNum = parData.catgCode;
+        if(parData.childList&&parData.childList.length){
+          that.changeChildNav(parData.childList[0])
+        }else{
+          that.changeChildNav(parData)
+        }
       },
-      changeChildNav(e){
-        console.log(e)
-        this.scrollTop = 0;
-        this.childCurNum = e.currentTarget.dataset.childid
+      changeChildNav(chiData){
+        console.log(chiData)
+        var that = this;
+        that.scrollTop = 0;
+        that.childCurNum = chiData.catgCode;
+        wx.request({
+          url: that.$store.state.board.urlHttp +'/wechatapi/product/findProductByCatgCode',
+          method: "POST",
+          data: {catgCode:chiData.catgCode},
+          header: {'content-type': 'application/x-www-form-urlencoded'},
+          success: function (res) {
+            console.log(res)
+            if (res.data.success) {
+              if(res.data.data){
+                that.productItem = res.data.data;
+                for(var i=0;i<that.productItem.length;i++){
+                  that.productItem[i].filePath =  that.$store.state.board.urlHttp + that.productItem[i].filePath
+                }
+              }
+            }
+          }
+        })
       },
-      detailsPage(e){
-        this.$store.state.board.computerInfo.name =  e.currentTarget.dataset.computername
+      detailsPage(item){
+        // this.$store.state.board.computerInfo.name =  e.currentTarget.dataset.computername
         wx.navigateTo({
-          url: '../detailPage/main?modelId='+ e.currentTarget.dataset.modelid
+          url: '../detailPage/main?productId='+ item.productId
         })
       },
       cancle(){

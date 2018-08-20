@@ -97,8 +97,12 @@
     onLoad(option) {
       var that = this;
       console.log(4444444)
-      that.productId = option.productId
-      that.preCtoId = option.preCtoId
+      that.productId = option.productId;
+      that.preCtoId = option.preCtoId;
+      for(var i=0;i<that.dataIndex.length;i++){
+        that.dataIndex[i].num = ''
+        that.dataIndex[i].price = 0
+      }
       wx.request({
         url: that.$store.state.board.urlHttp +'/wechatapi/product/selectParts',
         method: "POST",

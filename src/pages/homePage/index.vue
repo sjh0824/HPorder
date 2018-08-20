@@ -1,30 +1,37 @@
 <template>
   <div class="vist-userInfo" v-if="authorizeFlag === true">
-      <div class="sowingMap">
-        <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-            <swiper-item  v-for="(item,index) in imgUrls" :key="index">
-              <image :src="item" class="slide-image" style="width: 100%;height: 100%;"/>
-            </swiper-item>
-        </swiper>
-      </div>
+    <div class="sowingMap">
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+        <swiper-item v-for="(item,index) in imgUrls" :key="index">
+          <image :src="item" class="slide-image" style="width: 100%;height: 100%;"/>
+        </swiper-item>
+      </swiper>
+    </div>
     <div class="containers">
-        <div class="leftNav">
-            <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-parentid="item.catgCode" :class="{ hotModel: currentNum==item.catgCode}" @click="changeNav(item)">
+      <div class="leftNav">
+        <scroll-view scroll-y :scroll-top=scrollTop>
+          <div v-for="(item,index) in dtasets" class="modeles" :key="index" :data-parentid="item.catgCode"
+               :class="{ hotModel: currentNum==item.catgCode}" @click="changeNav(item)">
 
-              <i class="icon iconfont icon-remen1" v-if="index==0"></i>
-              <i class="icon iconfont icon-diannao" v-if="index==1"></i>
-              <i class="icon iconfont icon-bijibendiannao" v-if="index==2"></i>
-              {{item.catgName}}
-              <div class="childModel" v-if="item.childList.length>0" v-for="(items,ind) in item.childList" :key="ind" :data-childid="items.catgCode"  :class="{ childHotModel: childCurNum==items.catgCode,childDis: currentNum==item.catgCode}" @click="changeChildNav(items)"  @touchstart.stop='changeChildNav(items)'>
-                <p>
-                  {{items.catgName}}
-                </p>
-              </div>
+            <i class="icon iconfont icon-remen1" v-if="index==0"></i>
+            <i class="icon iconfont icon-diannao" v-if="index==1"></i>
+            <i class="icon iconfont icon-bijibendiannao" v-if="index==2"></i>
+            {{item.catgName}}
+            <div class="childModel" v-if="item.childList.length>0" v-for="(items,ind) in item.childList" :key="ind"
+                 :data-childid="items.catgCode"
+                 :class="{ childHotModel: childCurNum==items.catgCode,childDis: currentNum==item.catgCode}"
+                 @click="changeChildNav(items)" @touchstart.stop='changeChildNav(items)'>
+              <p>
+                {{items.catgName}}
+              </p>
             </div>
-        </div>
-        <div class="rightCon">
-        <scroll-view scroll-y  :scroll-top=scrollTop>
-          <div v-for="(item,index) in productItem" :key="index" class="rightModel" :data-computername="item.productName" @click="detailsPage(item)">
+          </div>
+        </scroll-view>
+      </div>
+      <div class="rightCon">
+        <scroll-view scroll-y :scroll-top=scrollTop>
+          <div v-for="(item,index) in productItem" :key="index" class="rightModel" :data-computername="item.productName"
+               @click="detailsPage(item)">
             <img class="rightImg" :src="item.filePath" alt="" mode="aspectFit">
             <p>{{item.productName}}</p>
           </div>
@@ -32,19 +39,19 @@
       </div>
     </div>
     <div class="cliBtn" @click="contactInfo">
-        <i class="icon iconfont icon-dianhua11"></i>
-        联系客服
+      <i class="icon iconfont icon-dianhua11"></i>
+      联系客服
     </div>
     <div class="maskModel" :class="{maskBlock: authorLoc== true}">
       <div class="maskContainer">
-          <div class="maskText">“CTO计算器”要获取你的地理位置，是否允许？</div>
-          <div class="maskBtn">
-            <button @click="cancle()">取消</button>
-            <button open-type="openSetting" @opensetting='handlerLocation' class="confirm">确定</button>
-          </div>
+        <div class="maskText">“CTO计算器”要获取你的地理位置，是否允许？</div>
+        <div class="maskBtn">
+          <button @click="cancle()">取消</button>
+          <button open-type="openSetting" @opensetting='handlerLocation' class="confirm">确定</button>
+        </div>
       </div>
     </div>
-    <div class="contactModal"  :class="{maskBlock: hiddenmodalput== false}">
+    <div class="contactModal" :class="{maskBlock: hiddenmodalput== false}">
       <div class="maskContainer">
         <div class="maskTtitle">提示</div>
         <div class="maskText">确定拨打电话：1340000 吗？</div>
@@ -83,20 +90,21 @@
 <script>
   import utils from "../../utils/utils.js";
   import QQMapWX from '../../../static/qqmap-wx-jssdk.min'
+
   export default {
     data() {
       return {
-        currentNum:'',
-        childCurNum:'',
-        scrollTop:0,
+        currentNum: '',
+        childCurNum: '',
+        scrollTop: 0,
         authorLoc: false,
         imgUrls: [
           'https://cto.hejinkai.com/static/file/201808/1.jpg',
           'https://cto.hejinkai.com/static/file/201808/2.jpg',
           'https://cto.hejinkai.com/static/file/201808/3.jpg'
         ],
-        dtasets:[],
-        productItem:[],
+        dtasets: [],
+        productItem: [],
         hiddenmodalput: true
       }
     },
@@ -105,19 +113,19 @@
       console.log(111111111)
       var that = this;
       wx.request({
-        url: that.$store.state.board.urlHttp +'/wechatapi/product/findProDuctCatgList',
+        url: that.$store.state.board.urlHttp + '/wechatapi/product/findProDuctCatgList',
         method: "POST",
         header: {'content-type': 'application/x-www-form-urlencoded'},
         success: function (res) {
           console.log(res)
-          that.dtasets=[]
+          that.dtasets = []
           if (res.data.success) {
-            if(res.data.data&&res.data.data.length>0){
+            if (res.data.data && res.data.data.length > 0) {
               that.currentNum = res.data.data[0].catgCode;
               that.dtasets = res.data.data;
-              that.changeNav( res.data.data[0])
+              that.changeNav(res.data.data[0])
             }
-          }else{
+          } else {
             wx.showToast({
               title: '获取导航失败。',
               icon: 'none',
@@ -127,20 +135,20 @@
         }
       })
     },
-    onShow(){
+    onShow() {
       var that = this;
       that.hiddenmodalput = true;
       wx.getSetting({
         success: (res) => {
           console.log(res);
           console.log(res.authSetting['scope.userLocation']);
-          if(res.authSetting['scope.userLocation']){
-            that.location(that,QQMapWX);
-          }else{
+          if (res.authSetting['scope.userLocation']) {
+            that.location(that, QQMapWX);
+          } else {
             if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
               that.authorLoc = true;
             } else if (res.authSetting['scope.userLocation'] == undefined) {//初始化进入
-              that.location(that,QQMapWX);
+              that.location(that, QQMapWX);
             }
           }
         }
@@ -153,7 +161,7 @@
         console.log(res.target)
       }
 
-      var actId =that.$store.state.board.actId
+      var actId = that.$store.state.board.actId
       var helpId = that.$store.state.board.myHelpId
       var path = "/pages/activePower/main";
 
@@ -178,36 +186,36 @@
         this.checked = false;
         wx.hideLoading()
       },
-      changeNav(parData){
+      changeNav(parData) {
         console.log(parData)
         var that = this;
         that.childCurNum = 0;
         that.scrollTop = 0;
         that.currentNum = parData.catgCode;
-        if(parData.childList&&parData.childList.length){
+        if (parData.childList && parData.childList.length) {
           that.changeChildNav(parData.childList[0])
-        }else{
+        } else {
           that.changeChildNav(parData)
         }
       },
-      changeChildNav(chiData){
+      changeChildNav(chiData) {
         console.log(chiData)
         var that = this;
         that.scrollTop = 0;
         that.childCurNum = chiData.catgCode;
         wx.request({
-          url: that.$store.state.board.urlHttp +'/wechatapi/product/findProductByCatgCode',
+          url: that.$store.state.board.urlHttp + '/wechatapi/product/findProductByCatgCode',
           method: "POST",
-          data: {catgCode:chiData.catgCode},
+          data: {catgCode: chiData.catgCode},
           header: {'content-type': 'application/x-www-form-urlencoded'},
           success: function (res) {
             console.log(res)
-            that.productItem=[]
+            that.productItem = []
             if (res.data.success) {
-              if(res.data.data&&res.data.data.length>0){
+              if (res.data.data && res.data.data.length > 0) {
                 that.productItem = res.data.data;
-                for(var i=0;i<that.productItem.length;i++){
-                  that.productItem[i].filePath =  that.$store.state.board.urlHttp + that.productItem[i].filePath
+                for (var i = 0; i < that.productItem.length; i++) {
+                  that.productItem[i].filePath = that.$store.state.board.urlHttp + that.productItem[i].filePath
                 }
               }
               // else{
@@ -217,7 +225,7 @@
               //     duration: 1000
               //   })
               // }
-            }else{
+            } else {
               wx.showToast({
                 title: '获取产品列表失败。',
                 icon: 'none',
@@ -227,20 +235,20 @@
           }
         })
       },
-      detailsPage(item){
+      detailsPage(item) {
         // this.$store.state.board.computerInfo.name =  e.currentTarget.dataset.computername
         wx.navigateTo({
-          url: '../detailPage/main?productId='+ item.productId
+          url: '../detailPage/main?productId=' + item.productId
         })
       },
-      cancle(){
+      cancle() {
         this.authorLoc = false;
         this.hiddenmodalput = true
       },
-      handlerLocation(){
+      handlerLocation() {
         this.authorLoc = false;
       },
-      location(that,QQMapWX){
+      location(that, QQMapWX) {
         var qqmapsdk;
         qqmapsdk = new QQMapWX({
           key: 'OISBZ-SUKW6-LJ7SS-MXQHI-GC5FF-CQBGM'
@@ -268,14 +276,14 @@
       bindGetUserInfo() {
         this.login(this);
       },
-      login(){
+      login() {
         var that = this;
         utils.login(that);
       },
-      contactInfo(){
+      contactInfo() {
         this.hiddenmodalput = false
       },
-      confirm(){
+      confirm() {
         wx.makePhoneCall({
           phoneNumber: '1340000' //仅为示例，并非真实的电话号码
         })
@@ -304,93 +312,99 @@
     font-size: 22px;
     width: 100%;
     height: 100%;
-    .sowingMap{
+    .sowingMap {
       width: 100%;
       height: 98px;
-      swiper{
+      swiper {
         width: 100%;
         height: 100%;
       }
     }
-    .containers{
+    .containers {
       width: 100%;
       height: calc(100% - 145px);
-      .leftNav{
+
+      .leftNav {
         width: 100px;
-        height: 100%;
+        height: 100% ;
         float: left;
         background-color: #F5F5F5;
-        .modeles{
-          width: 100%;
-          /*height: 50px;*/
-          line-height: 50px;
-          font-size: 14px;
-          color: #0096D6;
-          border-bottom: 1px solid #fff;
-          text-align: left;
-          /*box-sizing: border-box;*/
-          i{
-            margin-left: 10px;
-            display: inline-block;
-            margin-right: 2px;
-            height: 30px;
-            position: relative;
-            top:2px;
-          }
-          .icon-bijibendiannao{
-            width: 17px;
-            font-size: 19px;
-          }
-          .childModel{
+        scroll-view {
+          height: 100%;
+          .modeles {
             width: 100%;
             /*height: 50px;*/
-            line-height: 50px;
-            font-size: 12px;
+            line-height: 49px;
+            font-size: 14px;
             color: #0096D6;
-            text-align: center;
-            border-bottom: 1px solid #F5F5F5;
-            display: none;
-            background-color: #FFF;
-            p{
-              line-height: 50px;
+            border-bottom: 1px solid #fff;
+            text-align: left;
+            box-sizing: border-box;
+            i {
+              margin-left: 10px;
+              display: inline-block;
+              margin-right: 2px;
+              height: 30px;
+              position: relative;
+              top: 2px;
             }
+            .icon-bijibendiannao {
+              width: 17px;
+              font-size: 19px;
+            }
+            .childModel {
+              width: 100%;
+              /*height: 50px;*/
+              line-height: 49px;
+              font-size: 12px;
+              color: #0096D6;
+              text-align: center;
+              border-bottom: 1px solid #F5F5F5;
+              box-sizing: border-box;
+              display: none;
+              background-color: #FFF;
+              p {
+                line-height: 50px;
+              }
 
+            }
+            .childHotModel {
+              color: #101010;
+              background-color: #fff;
+              border-left: 2px solid #0096D6;
+            }
+            div.childDis {
+              display: block;
+            }
           }
-          .childHotModel{
-            color:#101010;
-            background-color: #fff;
-            border-left: 2px solid #0096D6;
-          }
-          div.childDis{
-            display: block;
+          .hotModel {
+            background-color: #0096D6;
+            color: #fff;
+            border-bottom: 0px;
           }
         }
-        .hotModel{
-          background-color: #0096D6;
-          color: #fff;
-          border-bottom: 0px;
-        }
+
       }
-      .rightCon{
+      .rightCon {
         float: left;
         width: calc(100% - 100px);
         height: 100%;
         /*background-color: #fff;*/
-        scroll-view{
-          height: 100% ;
-          .rightModel{
+        scroll-view {
+          height: 100%;
+          .rightModel {
             width: 256px;
             height: 160px;
             margin: 20px auto;
             background-color: #F5F5F5;
             text-align: center;
-            .rightImg{
+            .rightImg {
               width: 242px;
               height: 100px;
               margin: 0 auto;
               margin-top: 20px;
             }
-            p{
+            p {
               height: 23px;
               margin-top: 5px;
               font-size: 10px;
@@ -402,12 +416,12 @@
 
       }
     }
-    .cliBtn{
+    .cliBtn {
       width: 100%;
       height: 47px;
       position: fixed;
       left: 0px;
-      bottom:0px;
+      bottom: 0px;
       box-sizing: border-box;
       line-height: 47px;
       background-color: rgba(0, 150, 217, 1);
@@ -415,43 +429,42 @@
       font-size: 14px;
       text-align: center;
       font-family: Arial;
-      i{
+      i {
         display: inline-block;
         font-size: 20px;
         position: relative;
         top: 3px;
       }
 
-
     }
-    .maskModel{
+    .maskModel {
       width: 100%;
       height: 100%;
       display: none;
-      background-color: rgba(0,0,0,.7);
+      background-color: rgba(0, 0, 0, .7);
       position: fixed;
       left: 0px;
-      top:0px;
+      top: 0px;
       z-index: 1000;
-      .maskContainer{
+      .maskContainer {
         width: 80%;
         height: 110px;
         margin: 0 auto;
         margin-top: 50%;
         background-color: #fff;
         border-radius: 10px;
-        .maskText{
+        .maskText {
           padding: 20px;
           padding-bottom: 10px;
           font-size: 14px;
           text-align: center;
           color: #999;
         }
-        .maskBtn{
-          button::after{
-            border:none;
+        .maskBtn {
+          button::after {
+            border: none;
           }
-          button{
+          button {
             width: 50%;
             float: left;
             border-radius: 0px;
@@ -460,7 +473,7 @@
             background-color: #fff;
             border-bottom-left-radius: 10px;
           }
-          .confirm{
+          .confirm {
             color: #3CC51F;
             border-left: 1px solid #ccc;
             border-bottom-left-radius: 0px;
@@ -469,23 +482,23 @@
         }
       }
     }
-    .contactModal{
+    .contactModal {
       width: 100%;
       height: 100%;
       display: none;
-      background-color: rgba(0,0,0,.7);
+      background-color: rgba(0, 0, 0, .7);
       position: fixed;
       left: 0px;
-      top:0px;
+      top: 0px;
       z-index: 1000;
-      .maskContainer{
+      .maskContainer {
         width: 80%;
         height: 135px;
         margin: 0 auto;
         margin-top: 50%;
         background-color: #fff;
         border-radius: 10px;
-        .maskTtitle{
+        .maskTtitle {
           padding: 20px;
           padding-bottom: 10px;
           font-size: 18px;
@@ -493,17 +506,17 @@
           color: #000;
           font-weight: bold;
         }
-        .maskText{
+        .maskText {
           padding-bottom: 20px;
           font-size: 14px;
           text-align: center;
           color: #999;
         }
-        .maskBtn{
-          button::after{
-            border:none;
+        .maskBtn {
+          button::after {
+            border: none;
           }
-          button{
+          button {
             width: 50%;
             float: left;
             border-radius: 0px;
@@ -513,7 +526,7 @@
             color: #000;
             border-bottom-left-radius: 10px;
           }
-          .confirm{
+          .confirm {
             color: #3CC51F;
             border-left: 1px solid #ccc;
             border-bottom-left-radius: 0px;
@@ -522,7 +535,7 @@
         }
       }
     }
-    div.maskBlock{
+    div.maskBlock {
       display: block;
     }
   }
@@ -587,7 +600,7 @@
             margin-top: 15px;
             border-radius: 3px;
             box-sizing: border-box;
-            background-color:  #0096D6;
+            background-color: #0096D6;
             color: #fff;
           }
           button[type="default"] {

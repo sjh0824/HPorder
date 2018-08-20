@@ -112,6 +112,7 @@
       that.currentNum = 0;
       console.log(option)
       console.log(22222222)
+      that.proInfos = ''
       wx.request({
         url: that.$store.state.board.urlHttp +'/wechatapi/product/getProductById',
         method: "POST",

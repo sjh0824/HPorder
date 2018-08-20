@@ -104,7 +104,7 @@
         success: function (res) {
           that.proDetail = []
           if (res.data.success) {
-            if(res.data.data){
+            if(res.data.data&&res.data.data.length>0){
               console.log(res.data.data)
               that.proDetail = res.data.data;
               for(var i=0;i<that.proDetail.length;i++){

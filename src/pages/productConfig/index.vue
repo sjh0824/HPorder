@@ -21,7 +21,7 @@
           推荐配置
         </div>
       <scroll-view scroll-y>
-        <div v-for="(item,index) in proConfig" :class="{ borderLines: currentNum==item.preCtoId}" @click="configDetail(productId,item)">
+        <div v-for="(item,index) in proConfig" :key="index" :class="{ borderLines: currentNum==item.preCtoId}" @click="configDetail(productId,item)">
          {{item.preName}}
         </div>
         <!--<div :class="{ borderLines: currentNum==0}" @click="configDetail('0')">-->
@@ -76,12 +76,25 @@
         dataType:'json',
         success: function (res) {
           console.log(res)
+          that.proConfig = []
           if (res.data.success) {
-            if(res.data.data){
+            if(res.data.data&&res.data.data.length>0){
               that.currentNum = res.data.data[0].preCtoId;
               that.$store.state.board.computerInfo.name = res.data.data[0].preName;
               that.proConfig = res.data.data;
+            }else{
+              wx.showToast({
+                title: '无推荐配置',
+                icon: 'none',
+                duration: 1000
+              })
             }
+          }else{
+            wx.showToast({
+              title: '获取推荐配置失败，请重新获取！',
+              icon: 'none',
+              duration: 1000
+            })
           }
         }
       })

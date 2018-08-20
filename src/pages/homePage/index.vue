@@ -1,5 +1,5 @@
 <template>
-  <div class="vist-userInfo" v-if="authorizeFlag == true">
+  <div class="vist-userInfo" v-if="authorizeFlag === true">
       <div class="sowingMap">
         <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">
             <swiper-item  v-for="(item,index) in imgUrls" :key="index">
@@ -24,22 +24,16 @@
         </div>
         <div class="rightCon">
         <scroll-view scroll-y  :scroll-top=scrollTop>
-          <div v-for="(item,index) in productItem" class="rightModel" :data-computername="item.productName" @click="detailsPage(item)">
+          <div v-for="(item,index) in productItem" :key="index" class="rightModel" :data-computername="item.productName" @click="detailsPage(item)">
             <img class="rightImg" :src="item.filePath" alt="" mode="aspectFit">
             <p>{{item.productName}}</p>
           </div>
         </scroll-view>
       </div>
     </div>
-    <div class="cliBtn">
-      <div>
-        <i class="icon iconfont icon-shoucang2"></i>
-        我的收藏
-      </div>
-      <div class="contactCus">
+    <div class="cliBtn" @click="contactInfo">
         <i class="icon iconfont icon-dianhua11"></i>
         联系客服
-      </div>
     </div>
     <div class="maskModel" :class="{maskBlock: authorLoc== true}">
       <div class="maskContainer">
@@ -50,8 +44,18 @@
           </div>
       </div>
     </div>
+    <div class="contactModal"  :class="{maskBlock: hiddenmodalput== false}">
+      <div class="maskContainer">
+        <div class="maskTtitle">提示</div>
+        <div class="maskText">确定拨打电话：1340000 吗？</div>
+        <div class="maskBtn">
+          <button @click="cancle">取消</button>
+          <button @click='confirm' class="confirm">确定</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="authorizes-userInfo" v-else-if="authorizeFlag == false">
+  <div class="authorizes-userInfo" v-else-if="authorizeFlag === false">
     <!--<web-view src="https://www.hejinkai.com/51talk"></web-view>-->
     <div class="authorizes">
       <div class="logo">
@@ -73,6 +77,7 @@
     </div>
 
   </div>
+
 </template>
 
 <script>
@@ -91,15 +96,40 @@
           'https://cto.hejinkai.com/static/file/201808/3.jpg'
         ],
         dtasets:[],
-        productItem:[]
+        productItem:[],
+        hiddenmodalput: true
       }
     },
 
     onLoad() {
       console.log(111111111)
+      var that = this;
+      wx.request({
+        url: that.$store.state.board.urlHttp +'/wechatapi/product/findProDuctCatgList',
+        method: "POST",
+        header: {'content-type': 'application/x-www-form-urlencoded'},
+        success: function (res) {
+          console.log(res)
+          that.dtasets=[]
+          if (res.data.success) {
+            if(res.data.data&&res.data.data.length>0){
+              that.currentNum = res.data.data[0].catgCode;
+              that.dtasets = res.data.data;
+              that.changeNav( res.data.data[0])
+            }
+          }else{
+            wx.showToast({
+              title: '获取导航失败。',
+              icon: 'none',
+              duration: 1000
+            })
+          }
+        }
+      })
     },
     onShow(){
       var that = this;
+      that.hiddenmodalput = true;
       wx.getSetting({
         success: (res) => {
           console.log(res);
@@ -111,21 +141,6 @@
               that.authorLoc = true;
             } else if (res.authSetting['scope.userLocation'] == undefined) {//初始化进入
               that.location(that,QQMapWX);
-            }
-          }
-        }
-      })
-      wx.request({
-        url: that.$store.state.board.urlHttp +'/wechatapi/product/findProDuctCatgList',
-        method: "POST",
-        header: {'content-type': 'application/x-www-form-urlencoded'},
-        success: function (res) {
-          console.log(res)
-          if (res.data.success) {
-            if(res.data.data){
-              that.currentNum = res.data.data[0].catgCode;
-              that.dtasets = res.data.data;
-              that.changeNav( res.data.data[0])
             }
           }
         }
@@ -187,13 +202,27 @@
           header: {'content-type': 'application/x-www-form-urlencoded'},
           success: function (res) {
             console.log(res)
+            that.productItem=[]
             if (res.data.success) {
-              if(res.data.data){
+              if(res.data.data&&res.data.data.length>0){
                 that.productItem = res.data.data;
                 for(var i=0;i<that.productItem.length;i++){
                   that.productItem[i].filePath =  that.$store.state.board.urlHttp + that.productItem[i].filePath
                 }
               }
+              // else{
+              //   wx.showToast({
+              //     title: '该导航栏下无产品列表。',
+              //     icon: 'none',
+              //     duration: 1000
+              //   })
+              // }
+            }else{
+              wx.showToast({
+                title: '获取产品列表失败。',
+                icon: 'none',
+                duration: 1000
+              })
             }
           }
         })
@@ -206,6 +235,7 @@
       },
       cancle(){
         this.authorLoc = false;
+        this.hiddenmodalput = true
       },
       handlerLocation(){
         this.authorLoc = false;
@@ -241,6 +271,14 @@
       login(){
         var that = this;
         utils.login(that);
+      },
+      contactInfo(){
+        this.hiddenmodalput = false
+      },
+      confirm(){
+        wx.makePhoneCall({
+          phoneNumber: '1340000' //仅为示例，并非真实的电话号码
+        })
       }
     },
     async onPullDownRefresh() {
@@ -370,27 +408,21 @@
       position: fixed;
       left: 0px;
       bottom:0px;
-      div{
-        width: 50%;
-        float: left;
-        box-sizing: border-box;
-        height: 47px;
-        line-height: 47px;
-        background-color: rgba(0, 150, 217, 1);
-        color: rgba(255, 255, 255, 1);
-        font-size: 14px;
-        text-align: center;
-        font-family: Arial;
-        i{
-          display: inline-block;
-          font-size: 20px;
-          position: relative;
-          top: 3px;
-        }
+      box-sizing: border-box;
+      line-height: 47px;
+      background-color: rgba(0, 150, 217, 1);
+      color: rgba(255, 255, 255, 1);
+      font-size: 14px;
+      text-align: center;
+      font-family: Arial;
+      i{
+        display: inline-block;
+        font-size: 20px;
+        position: relative;
+        top: 3px;
       }
-      .contactCus{
-        border-left: 1px solid #fff;
-      }
+
+
     }
     .maskModel{
       width: 100%;
@@ -407,6 +439,7 @@
         margin: 0 auto;
         margin-top: 50%;
         background-color: #fff;
+        border-radius: 10px;
         .maskText{
           padding: 20px;
           padding-bottom: 10px;
@@ -425,10 +458,66 @@
             box-sizing: border-box;
             border-top: 1px solid #ccc;
             background-color: #fff;
+            border-bottom-left-radius: 10px;
           }
           .confirm{
             color: #3CC51F;
             border-left: 1px solid #ccc;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 10px;
+          }
+        }
+      }
+    }
+    .contactModal{
+      width: 100%;
+      height: 100%;
+      display: none;
+      background-color: rgba(0,0,0,.7);
+      position: fixed;
+      left: 0px;
+      top:0px;
+      z-index: 1000;
+      .maskContainer{
+        width: 80%;
+        height: 135px;
+        margin: 0 auto;
+        margin-top: 50%;
+        background-color: #fff;
+        border-radius: 10px;
+        .maskTtitle{
+          padding: 20px;
+          padding-bottom: 10px;
+          font-size: 18px;
+          text-align: center;
+          color: #000;
+          font-weight: bold;
+        }
+        .maskText{
+          padding-bottom: 20px;
+          font-size: 14px;
+          text-align: center;
+          color: #999;
+        }
+        .maskBtn{
+          button::after{
+            border:none;
+          }
+          button{
+            width: 50%;
+            float: left;
+            border-radius: 0px;
+            box-sizing: border-box;
+            border-top: 1px solid #ccc;
+            background-color: #fff;
+            color: #000;
+            border-bottom-left-radius: 10px;
+          }
+          .confirm{
+            color: #3CC51F;
+            border-left: 1px solid #ccc;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 10px;
           }
         }
       }

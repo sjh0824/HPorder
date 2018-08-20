@@ -124,6 +124,12 @@
               that.proInfos = res.data.data;
               that.proInfos.filePath = that.$store.state.board.urlHttp + that.proInfos.filePath
             }
+          }else{
+            wx.showToast({
+              title: '获取详细信息失败。',
+              icon: 'none',
+              duration: 1000
+            })
           }
         }
       })

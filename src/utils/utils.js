@@ -24,7 +24,6 @@ function login(that) {
             success: function (res) {
               if (res.data.success) {
                 console.log(new Date().getTime());
-                that.$store.state.board.authorizeFlag = true;
                 that.$store.state.board.sessionID = res.data.sessionID;
               }
             }

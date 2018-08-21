@@ -1,7 +1,7 @@
 <template>
   <div class="vist-userInfo">
     <div class="configTitle">
-      <p>{{computerInfo.name}}</p>
+      <p>{{computerInfo}}</p>
     </div>
     <scroll-view scroll-y>
       <div v-for="(item,index) in proDetail" :key="index">
@@ -192,7 +192,7 @@
     },
     computed: {
       computerInfo() {
-        return this.$store.state.board.computerInfo
+        return this.$store.state.board.computerInfoName
       }
     },
     mounted() {

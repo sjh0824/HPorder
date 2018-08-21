@@ -5,7 +5,7 @@
       </div>
     <div class="commitInfo">
       <div class="commitTitle">
-        <p>  您定制的产品型号是  {{computerInfo.name}}</p>
+        <p>  您定制的产品型号是  {{computerInfo}}</p>
         <p> 具体参数如下：</p>
       </div>
       <div class="commitImg">
@@ -81,7 +81,7 @@
     },
     computed: {
       computerInfo() {
-        return this.$store.state.board.computerInfo
+        return this.$store.state.board.computerInfoName
       },
     },
     mounted() {

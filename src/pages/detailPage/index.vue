@@ -126,6 +126,7 @@
             if(res.data.data){
               that.proInfos = res.data.data;
               that.proInfos.filePath = that.$store.state.board.urlHttp + that.proInfos.filePath
+              that.$store.state.board.computerInfoName  = that.proInfos.productName
             }
           }else{
             wx.showToast({

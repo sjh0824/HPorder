@@ -1,4 +1,4 @@
-function login(that) {
+function login(that,flag) {
   console.log(new Date().getTime())
   wx.login({
     success: function (res) {
@@ -24,6 +24,9 @@ function login(that) {
             success: function (res) {
               if (res.data.success) {
                 console.log(new Date().getTime());
+                if(flag){
+                  that.$store.state.board.authorizeFlag = true;
+                }
                 that.$store.state.board.sessionID = res.data.sessionID;
               }
             }

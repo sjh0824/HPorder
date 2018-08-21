@@ -268,7 +268,7 @@
       },
       login() {
         var that = this;
-        utils.login(that);
+        utils.login(that,true);
       },
       contactInfo() {
         this.hiddenmodalput = false

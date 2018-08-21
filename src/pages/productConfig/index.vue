@@ -5,14 +5,10 @@
         <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="aspectFit">
       </div>
       <div class="productInfo">
-        <span>{{computerInfo.name}}</span>
-        <p>
-          {{computerInfo.cpu}}
+        <span>{{computerInfo}}</span>
+        <p v-for="(item, index) in computerInfoData" :key="index">
+          {{item}}
         </p>
-        <p>{{computerInfo.ddr}}</p>
-        <p>{{computerInfo.hdd}}</p>
-        <p>{{computerInfo.card}}</p>
-        <p>{{computerInfo.os}}</p>
       </div>
     </div>
     <hr class="lines">
@@ -22,7 +18,7 @@
         </div>
       <scroll-view scroll-y>
         <div v-for="(item,index) in proConfig" :key="index" :class="{ borderLines: currentNum==item.preCtoId}" @click="configDetail(productId,item)">
-         {{item.preName}}
+         {{item.showText}}
         </div>
         <!--<div :class="{ borderLines: currentNum==0}" @click="configDetail('0')">-->
           <!--标准配置（双核i3、16G DDR4、1T、集显）-->
@@ -60,6 +56,7 @@
       return {
         productId:'',
         currentNum:'',
+        imgPath:'',
         proConfig:[]
       }
     },
@@ -69,7 +66,7 @@
       that.productId = option.productId
       console.log(option.productId)
       wx.request({
-        url: that.$store.state.board.urlHttp +'/wechatapi/product/findProductPreCtoList',
+        url: that.$store.state.board.urlHttp +'/wechatapi/product/getCtoProductAndPre',
         method: "POST",
         data:  {productId:option.productId},
         header: {'content-type': 'application/x-www-form-urlencoded'},
@@ -77,11 +74,14 @@
         success: function (res) {
           console.log(res)
           that.proConfig = []
+          that.$store.state.board.computerInfoData=[]
           if (res.data.success) {
-            if(res.data.data&&res.data.data.length>0){
-              that.currentNum = res.data.data[0].preCtoId;
-              that.$store.state.board.computerInfo.name = res.data.data[0].preName;
-              that.proConfig = res.data.data;
+            console.log(res.data.details)
+            that.imgPath =  that.$store.state.board.urlHttp + res.data.product.imgPath;
+            that.$store.state.board.computerInfoData =  res.data.details.split("\n");
+            if(res.data.preCtoList&&res.data.preCtoList.length>0){
+              that.currentNum = res.data.preCtoList[0].preCtoId;
+              that.proConfig = res.data.preCtoList;
             }else{
               wx.showToast({
                 title: '无推荐配置',
@@ -117,7 +117,6 @@
     methods: {
       configDetail(productId,item){
         this.currentNum = item.preCtoId;
-        this.$store.state.board.computerInfo.name = item.preName;
         wx.navigateTo({
           url: '../configDetail/main?productId='+productId  +"&preCtoId="+item.preCtoId
         })
@@ -132,7 +131,10 @@
     },
     computed: {
       computerInfo() {
-        return this.$store.state.board.computerInfo
+        return this.$store.state.board.computerInfoName
+      },
+      computerInfoData() {
+        return this.$store.state.board.computerInfoData
       },
     },
     mounted() {
